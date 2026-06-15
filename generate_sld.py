@@ -100,14 +100,18 @@ def scale(mn=Z17_MIN_SCALE_DENOM, mx=Z17_MAX_SCALE_DENOM):
 
 def polygon_sym(fill, stroke=None, sw=None, dash=None, opacity=None):
     """PolygonSymbolizer."""
-    f = f'''
+    # "none" means no fill — omit the Fill element entirely
+    if fill and fill != "none":
+        f = f'''
             <sld:Fill>
               <sld:CssParameter name="fill">{fill}</sld:CssParameter>'''
-    if opacity:
-        f += f'''
+        if opacity:
+            f += f'''
               <sld:CssParameter name="fill-opacity">{opacity}</sld:CssParameter>'''
-    f += '''
+        f += '''
             </sld:Fill>'''
+    else:
+        f = ""
 
     s = ""
     if stroke and stroke != "none":
@@ -216,9 +220,7 @@ def text_sym(label_field="name", font="Noto Sans, Arial, sans-serif", size=10,
               <sld:CssParameter name="fill">{fill}</sld:CssParameter>
             </sld:Fill>
             <sld:Halo>
-              <sld:Radius>
-                <ogc:Literal>{halo_radius}</ogc:Literal>
-              </sld:Radius>
+              <sld:Radius>{halo_radius}</sld:Radius>
               <sld:Fill>
                 <sld:CssParameter name="fill">{halo_fill}</sld:CssParameter>
               </sld:Fill>
@@ -248,6 +250,7 @@ def named_layer(layer_geom_name, title, rules_xml):
   <sld:NamedLayer>
     <sld:Name>{layer_geom_name}</sld:Name>
     <sld:UserStyle>
+      <sld:Name>{layer_geom_name}_style</sld:Name>
       <sld:Title>{esc(title)}</sld:Title>
       <sld:Abstract>OSM Carto z17 style for Geofabrik {layer_geom_name}</sld:Abstract>
       <sld:IsDefault>1</sld:IsDefault>

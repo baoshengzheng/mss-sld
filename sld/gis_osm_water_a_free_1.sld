@@ -11,6 +11,7 @@
   <sld:NamedLayer>
     <sld:Name>gis_osm_water_a_free_1</sld:Name>
     <sld:UserStyle>
+      <sld:Name>gis_osm_water_a_free_1_style</sld:Name>
       <sld:Title>Water Bodies (Area) - OSM Carto z17</sld:Title>
       <sld:Abstract>OSM Carto z17 style for Geofabrik gis_osm_water_a_free_1</sld:Abstract>
       <sld:IsDefault>1</sld:IsDefault>
@@ -136,9 +137,7 @@
               <sld:CssParameter name="fill">#4d80b3</sld:CssParameter>
             </sld:Fill>
             <sld:Halo>
-              <sld:Radius>
-                <ogc:Literal>1</ogc:Literal>
-              </sld:Radius>
+              <sld:Radius>1</sld:Radius>
               <sld:Fill>
                 <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
               </sld:Fill>

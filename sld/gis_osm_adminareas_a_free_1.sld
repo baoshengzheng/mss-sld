@@ -11,6 +11,7 @@
   <sld:NamedLayer>
     <sld:Name>gis_osm_adminareas_a_free_1</sld:Name>
     <sld:UserStyle>
+      <sld:Name>gis_osm_adminareas_a_free_1_style</sld:Name>
       <sld:Title>Administrative Areas (Area) - OSM Carto z17</sld:Title>
       <sld:Abstract>OSM Carto z17 style for Geofabrik gis_osm_adminareas_a_free_1</sld:Abstract>
       <sld:IsDefault>1</sld:IsDefault>
@@ -30,9 +31,6 @@
           <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
           <sld:MaxScaleDenominator>5000</sld:MaxScaleDenominator>
           <sld:PolygonSymbolizer>
-            <sld:Fill>
-              <sld:CssParameter name="fill">none</sld:CssParameter>
-            </sld:Fill>
             <sld:Stroke>
               <sld:CssParameter name="stroke">#a37da1</sld:CssParameter>
               <sld:CssParameter name="stroke-width">1</sld:CssParameter>
@@ -65,9 +63,7 @@
               <sld:CssParameter name="fill">#a37da1</sld:CssParameter>
             </sld:Fill>
             <sld:Halo>
-              <sld:Radius>
-                <ogc:Literal>1.5</ogc:Literal>
-              </sld:Radius>
+              <sld:Radius>1.5</sld:Radius>
               <sld:Fill>
                 <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
               </sld:Fill>
@@ -86,9 +82,6 @@
           <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
           <sld:MaxScaleDenominator>5000</sld:MaxScaleDenominator>
           <sld:PolygonSymbolizer>
-            <sld:Fill>
-              <sld:CssParameter name="fill">none</sld:CssParameter>
-            </sld:Fill>
             <sld:Stroke>
               <sld:CssParameter name="stroke">#8d618b</sld:CssParameter>
               <sld:CssParameter name="stroke-width">7</sld:CssParameter>
@@ -121,9 +114,7 @@
               <sld:CssParameter name="fill">#8d618b</sld:CssParameter>
             </sld:Fill>
             <sld:Halo>
-              <sld:Radius>
-                <ogc:Literal>1.5</ogc:Literal>
-              </sld:Radius>
+              <sld:Radius>1.5</sld:Radius>
               <sld:Fill>
                 <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
               </sld:Fill>
@@ -142,9 +133,6 @@
           <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
           <sld:MaxScaleDenominator>5000</sld:MaxScaleDenominator>
           <sld:PolygonSymbolizer>
-            <sld:Fill>
-              <sld:CssParameter name="fill">none</sld:CssParameter>
-            </sld:Fill>
             <sld:Stroke>
               <sld:CssParameter name="stroke">#8d618b</sld:CssParameter>
               <sld:CssParameter name="stroke-width">5</sld:CssParameter>
@@ -177,9 +165,7 @@
               <sld:CssParameter name="fill">#8d618b</sld:CssParameter>
             </sld:Fill>
             <sld:Halo>
-              <sld:Radius>
-                <ogc:Literal>1.5</ogc:Literal>
-              </sld:Radius>
+              <sld:Radius>1.5</sld:Radius>
               <sld:Fill>
                 <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
               </sld:Fill>
@@ -198,9 +184,6 @@
           <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
           <sld:MaxScaleDenominator>5000</sld:MaxScaleDenominator>
           <sld:PolygonSymbolizer>
-            <sld:Fill>
-              <sld:CssParameter name="fill">none</sld:CssParameter>
-            </sld:Fill>
             <sld:Stroke>
               <sld:CssParameter name="stroke">#a37da1</sld:CssParameter>
               <sld:CssParameter name="stroke-width">3</sld:CssParameter>
@@ -233,9 +216,7 @@
               <sld:CssParameter name="fill">#a37da1</sld:CssParameter>
             </sld:Fill>
             <sld:Halo>
-              <sld:Radius>
-                <ogc:Literal>1.5</ogc:Literal>
-              </sld:Radius>
+              <sld:Radius>1.5</sld:Radius>
               <sld:Fill>
                 <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
               </sld:Fill>
@@ -254,9 +235,6 @@
           <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
           <sld:MaxScaleDenominator>5000</sld:MaxScaleDenominator>
           <sld:PolygonSymbolizer>
-            <sld:Fill>
-              <sld:CssParameter name="fill">none</sld:CssParameter>
-            </sld:Fill>
             <sld:Stroke>
               <sld:CssParameter name="stroke">#a37da1</sld:CssParameter>
               <sld:CssParameter name="stroke-width">3</sld:CssParameter>
@@ -289,9 +267,7 @@
               <sld:CssParameter name="fill">#a37da1</sld:CssParameter>
             </sld:Fill>
             <sld:Halo>
-              <sld:Radius>
-                <ogc:Literal>1.5</ogc:Literal>
-              </sld:Radius>
+              <sld:Radius>1.5</sld:Radius>
               <sld:Fill>
                 <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
               </sld:Fill>
@@ -310,9 +286,6 @@
           <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
           <sld:MaxScaleDenominator>5000</sld:MaxScaleDenominator>
           <sld:PolygonSymbolizer>
-            <sld:Fill>
-              <sld:CssParameter name="fill">none</sld:CssParameter>
-            </sld:Fill>
             <sld:Stroke>
               <sld:CssParameter name="stroke">#a37da1</sld:CssParameter>
               <sld:CssParameter name="stroke-width">2</sld:CssParameter>
@@ -345,9 +318,7 @@
               <sld:CssParameter name="fill">#a37da1</sld:CssParameter>
             </sld:Fill>
             <sld:Halo>
-              <sld:Radius>
-                <ogc:Literal>1.5</ogc:Literal>
-              </sld:Radius>
+              <sld:Radius>1.5</sld:Radius>
               <sld:Fill>
                 <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
               </sld:Fill>
@@ -366,9 +337,6 @@
           <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
           <sld:MaxScaleDenominator>5000</sld:MaxScaleDenominator>
           <sld:PolygonSymbolizer>
-            <sld:Fill>
-              <sld:CssParameter name="fill">none</sld:CssParameter>
-            </sld:Fill>
             <sld:Stroke>
               <sld:CssParameter name="stroke">#a37da1</sld:CssParameter>
               <sld:CssParameter name="stroke-width">2</sld:CssParameter>
@@ -401,9 +369,7 @@
               <sld:CssParameter name="fill">#a37da1</sld:CssParameter>
             </sld:Fill>
             <sld:Halo>
-              <sld:Radius>
-                <ogc:Literal>1.5</ogc:Literal>
-              </sld:Radius>
+              <sld:Radius>1.5</sld:Radius>
               <sld:Fill>
                 <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
               </sld:Fill>
@@ -422,9 +388,6 @@
           <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
           <sld:MaxScaleDenominator>5000</sld:MaxScaleDenominator>
           <sld:PolygonSymbolizer>
-            <sld:Fill>
-              <sld:CssParameter name="fill">none</sld:CssParameter>
-            </sld:Fill>
             <sld:Stroke>
               <sld:CssParameter name="stroke">#a37da1</sld:CssParameter>
               <sld:CssParameter name="stroke-width">1.5</sld:CssParameter>
@@ -457,9 +420,7 @@
               <sld:CssParameter name="fill">#a37da1</sld:CssParameter>
             </sld:Fill>
             <sld:Halo>
-              <sld:Radius>
-                <ogc:Literal>1.5</ogc:Literal>
-              </sld:Radius>
+              <sld:Radius>1.5</sld:Radius>
               <sld:Fill>
                 <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
               </sld:Fill>
@@ -478,9 +439,6 @@
           <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
           <sld:MaxScaleDenominator>5000</sld:MaxScaleDenominator>
           <sld:PolygonSymbolizer>
-            <sld:Fill>
-              <sld:CssParameter name="fill">none</sld:CssParameter>
-            </sld:Fill>
             <sld:Stroke>
               <sld:CssParameter name="stroke">#a37da1</sld:CssParameter>
               <sld:CssParameter name="stroke-width">1.5</sld:CssParameter>
@@ -513,9 +471,7 @@
               <sld:CssParameter name="fill">#a37da1</sld:CssParameter>
             </sld:Fill>
             <sld:Halo>
-              <sld:Radius>
-                <ogc:Literal>1.5</ogc:Literal>
-              </sld:Radius>
+              <sld:Radius>1.5</sld:Radius>
               <sld:Fill>
                 <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
               </sld:Fill>
@@ -534,9 +490,6 @@
           <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
           <sld:MaxScaleDenominator>5000</sld:MaxScaleDenominator>
           <sld:PolygonSymbolizer>
-            <sld:Fill>
-              <sld:CssParameter name="fill">none</sld:CssParameter>
-            </sld:Fill>
             <sld:Stroke>
               <sld:CssParameter name="stroke">#a37da1</sld:CssParameter>
               <sld:CssParameter name="stroke-width">1</sld:CssParameter>
@@ -569,9 +522,7 @@
               <sld:CssParameter name="fill">#a37da1</sld:CssParameter>
             </sld:Fill>
             <sld:Halo>
-              <sld:Radius>
-                <ogc:Literal>1.5</ogc:Literal>
-              </sld:Radius>
+              <sld:Radius>1.5</sld:Radius>
               <sld:Fill>
                 <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
               </sld:Fill>
@@ -590,9 +541,6 @@
           <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
           <sld:MaxScaleDenominator>5000</sld:MaxScaleDenominator>
           <sld:PolygonSymbolizer>
-            <sld:Fill>
-              <sld:CssParameter name="fill">none</sld:CssParameter>
-            </sld:Fill>
             <sld:Stroke>
               <sld:CssParameter name="stroke">#a37da1</sld:CssParameter>
               <sld:CssParameter name="stroke-width">0.5</sld:CssParameter>
@@ -625,9 +573,7 @@
               <sld:CssParameter name="fill">#a37da1</sld:CssParameter>
             </sld:Fill>
             <sld:Halo>
-              <sld:Radius>
-                <ogc:Literal>1.5</ogc:Literal>
-              </sld:Radius>
+              <sld:Radius>1.5</sld:Radius>
               <sld:Fill>
                 <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
               </sld:Fill>
@@ -646,9 +592,6 @@
           <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
           <sld:MaxScaleDenominator>5000</sld:MaxScaleDenominator>
           <sld:PolygonSymbolizer>
-            <sld:Fill>
-              <sld:CssParameter name="fill">none</sld:CssParameter>
-            </sld:Fill>
             <sld:Stroke>
               <sld:CssParameter name="stroke">#a37da1</sld:CssParameter>
               <sld:CssParameter name="stroke-width">0.5</sld:CssParameter>
@@ -681,9 +624,7 @@
               <sld:CssParameter name="fill">#a37da1</sld:CssParameter>
             </sld:Fill>
             <sld:Halo>
-              <sld:Radius>
-                <ogc:Literal>1.5</ogc:Literal>
-              </sld:Radius>
+              <sld:Radius>1.5</sld:Radius>
               <sld:Fill>
                 <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
               </sld:Fill>

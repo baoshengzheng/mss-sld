@@ -11,6 +11,7 @@
   <sld:NamedLayer>
     <sld:Name>gis_osm_natural_a_free_1</sld:Name>
     <sld:UserStyle>
+      <sld:Name>gis_osm_natural_a_free_1_style</sld:Name>
       <sld:Title>Natural Features (Area) - OSM Carto z17</sld:Title>
       <sld:Abstract>OSM Carto z17 style for Geofabrik gis_osm_natural_a_free_1</sld:Abstract>
       <sld:IsDefault>1</sld:IsDefault>
