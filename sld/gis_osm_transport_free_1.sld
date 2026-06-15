@@ -67,7 +67,8 @@
             <sld:Halo>
               <sld:Radius>1</sld:Radius>
               <sld:Fill>
-                <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
+              <sld:CssParameter name="fill">#ffffff</sld:CssParameter>
+              <sld:CssParameter name="fill-opacity">0.6</sld:CssParameter>
               </sld:Fill>
             </sld:Halo>
           </sld:TextSymbolizer>
@@ -122,7 +123,8 @@
             <sld:Halo>
               <sld:Radius>1</sld:Radius>
               <sld:Fill>
-                <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
+              <sld:CssParameter name="fill">#ffffff</sld:CssParameter>
+              <sld:CssParameter name="fill-opacity">0.6</sld:CssParameter>
               </sld:Fill>
             </sld:Halo>
           </sld:TextSymbolizer>
@@ -177,7 +179,8 @@
             <sld:Halo>
               <sld:Radius>1</sld:Radius>
               <sld:Fill>
-                <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
+              <sld:CssParameter name="fill">#ffffff</sld:CssParameter>
+              <sld:CssParameter name="fill-opacity">0.6</sld:CssParameter>
               </sld:Fill>
             </sld:Halo>
           </sld:TextSymbolizer>
@@ -232,7 +235,8 @@
             <sld:Halo>
               <sld:Radius>1</sld:Radius>
               <sld:Fill>
-                <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
+              <sld:CssParameter name="fill">#ffffff</sld:CssParameter>
+              <sld:CssParameter name="fill-opacity">0.6</sld:CssParameter>
               </sld:Fill>
             </sld:Halo>
           </sld:TextSymbolizer>
@@ -287,7 +291,8 @@
             <sld:Halo>
               <sld:Radius>1</sld:Radius>
               <sld:Fill>
-                <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
+              <sld:CssParameter name="fill">#ffffff</sld:CssParameter>
+              <sld:CssParameter name="fill-opacity">0.6</sld:CssParameter>
               </sld:Fill>
             </sld:Halo>
           </sld:TextSymbolizer>
@@ -356,7 +361,8 @@
             <sld:Halo>
               <sld:Radius>1</sld:Radius>
               <sld:Fill>
-                <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
+              <sld:CssParameter name="fill">#ffffff</sld:CssParameter>
+              <sld:CssParameter name="fill-opacity">0.6</sld:CssParameter>
               </sld:Fill>
             </sld:Halo>
           </sld:TextSymbolizer>
@@ -411,7 +417,8 @@
             <sld:Halo>
               <sld:Radius>1</sld:Radius>
               <sld:Fill>
-                <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
+              <sld:CssParameter name="fill">#ffffff</sld:CssParameter>
+              <sld:CssParameter name="fill-opacity">0.6</sld:CssParameter>
               </sld:Fill>
             </sld:Halo>
           </sld:TextSymbolizer>
@@ -466,7 +473,8 @@
             <sld:Halo>
               <sld:Radius>1</sld:Radius>
               <sld:Fill>
-                <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
+              <sld:CssParameter name="fill">#ffffff</sld:CssParameter>
+              <sld:CssParameter name="fill-opacity">0.6</sld:CssParameter>
               </sld:Fill>
             </sld:Halo>
           </sld:TextSymbolizer>

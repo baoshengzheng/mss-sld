@@ -176,10 +176,29 @@ def point_sym(fill, size=6, stroke_color=None, stroke_width=1, shape="circle"):
           </sld:PointSymbolizer>'''
 
 
+def parse_color(color_str):
+    """Parse a color string. If rgba(), return (hex_color, opacity).
+    Otherwise return (color_str, None).
+    SLD 1.0 (CSS2-based) does not support rgba() notation."""
+    if color_str.startswith("rgba(") and color_str.endswith(")"):
+        # Format: rgba(R,G,B,A)
+        inner = color_str[5:-1]  # strip 'rgba(' and ')'
+        parts = [p.strip() for p in inner.split(",")]
+        if len(parts) == 4:
+            r, g, b = int(parts[0]), int(parts[1]), int(parts[2])
+            a = float(parts[3])
+            return f"#{r:02x}{g:02x}{b:02x}", str(a)
+    return color_str, None
+
+
 def text_sym(label_field="name", font="Noto Sans, Arial, sans-serif", size=10,
               fill="#222222", halo_fill="rgba(255,255,255,0.6)", halo_radius=1,
               placement="point"):
-    """TextSymbolizer."""
+    """TextSymbolizer. halo_fill accepts hex or rgba() — rgba is auto-converted
+    to hex + fill-opacity (SLD 1.0/CSS2 does not support rgba)."""
+    # Auto-convert rgba() to standard SLD: fill + fill-opacity
+    h_fill, h_opacity = parse_color(halo_fill)
+
     if placement == "line":
         place_xml = '''
             <sld:LabelPlacement>
@@ -202,6 +221,12 @@ def text_sym(label_field="name", font="Noto Sans, Arial, sans-serif", size=10,
               </sld:PointPlacement>
             </sld:LabelPlacement>'''
 
+    halo_fill_xml = f'''
+              <sld:CssParameter name="fill">{h_fill}</sld:CssParameter>'''
+    if h_opacity is not None:
+        halo_fill_xml += f'''
+              <sld:CssParameter name="fill-opacity">{h_opacity}</sld:CssParameter>'''
+
     return f'''
           <sld:TextSymbolizer>
             <sld:Label>
@@ -218,8 +243,7 @@ def text_sym(label_field="name", font="Noto Sans, Arial, sans-serif", size=10,
             </sld:Fill>
             <sld:Halo>
               <sld:Radius>{halo_radius}</sld:Radius>
-              <sld:Fill>
-                <sld:CssParameter name="fill">{halo_fill}</sld:CssParameter>
+              <sld:Fill>{halo_fill_xml}
               </sld:Fill>
             </sld:Halo>
           </sld:TextSymbolizer>'''
