@@ -19,6 +19,62 @@
         <sld:Title>Administrative Areas (Area) - OSM Carto z17</sld:Title>
         <sld:SemanticTypeIdentifier>generic:geometry</sld:SemanticTypeIdentifier>
         <sld:Rule>
+          <sld:Name>admin_admin_area</sld:Name>
+          <sld:Title>admin_admin_area</sld:Title>
+          <ogc:Filter>
+            <ogc:PropertyIsEqualTo>
+              <ogc:PropertyName>fclass</ogc:PropertyName>
+              <ogc:Literal>admin_area</ogc:Literal>
+            </ogc:PropertyIsEqualTo>
+          </ogc:Filter>
+          <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
+          <sld:MaxScaleDenominator>5000</sld:MaxScaleDenominator>
+          <sld:PolygonSymbolizer>
+            <sld:Fill>
+              <sld:CssParameter name="fill">none</sld:CssParameter>
+            </sld:Fill>
+            <sld:Stroke>
+              <sld:CssParameter name="stroke">#a37da1</sld:CssParameter>
+              <sld:CssParameter name="stroke-width">1</sld:CssParameter>
+            </sld:Stroke>
+          </sld:PolygonSymbolizer>
+
+          <sld:TextSymbolizer>
+            <sld:Label>
+              <ogc:PropertyName>name</ogc:PropertyName>
+            </sld:Label>
+            <sld:Font>
+              <sld:CssParameter name="font-family">Noto Sans, Arial, sans-serif</sld:CssParameter>
+              <sld:CssParameter name="font-size">9</sld:CssParameter>
+              <sld:CssParameter name="font-style">normal</sld:CssParameter>
+              <sld:CssParameter name="font-weight">normal</sld:CssParameter>
+            </sld:Font>
+            <sld:LabelPlacement>
+              <sld:PointPlacement>
+                <sld:AnchorPoint>
+                  <sld:AnchorX>0.5</sld:AnchorX>
+                  <sld:AnchorY>0.5</sld:AnchorY>
+                </sld:AnchorPoint>
+                <sld:Displacement>
+                  <sld:DisplacementX>0</sld:DisplacementX>
+                  <sld:DisplacementY>-10</sld:DisplacementY>
+                </sld:Displacement>
+              </sld:PointPlacement>
+            </sld:LabelPlacement>
+            <sld:Fill>
+              <sld:CssParameter name="fill">#a37da1</sld:CssParameter>
+            </sld:Fill>
+            <sld:Halo>
+              <sld:Radius>
+                <ogc:Literal>1.5</ogc:Literal>
+              </sld:Radius>
+              <sld:Fill>
+                <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
+              </sld:Fill>
+            </sld:Halo>
+          </sld:TextSymbolizer>
+        </sld:Rule>
+        <sld:Rule>
           <sld:Name>admin_national</sld:Name>
           <sld:Title>admin_national</sld:Title>
           <ogc:Filter>

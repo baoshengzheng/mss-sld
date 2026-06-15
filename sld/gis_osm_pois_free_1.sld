@@ -1003,6 +1003,74 @@
           </sld:TextSymbolizer>
         </sld:Rule>
         <sld:Rule>
+          <sld:Name>poi_leisure</sld:Name>
+          <sld:Title>poi_leisure</sld:Title>
+          <ogc:Filter>
+            <ogc:Or>
+              <ogc:PropertyIsEqualTo>
+                <ogc:PropertyName>fclass</ogc:PropertyName>
+                <ogc:Literal>park</ogc:Literal>
+              </ogc:PropertyIsEqualTo>
+              <ogc:PropertyIsEqualTo>
+                <ogc:PropertyName>fclass</ogc:PropertyName>
+                <ogc:Literal>playground</ogc:Literal>
+              </ogc:PropertyIsEqualTo>
+              <ogc:PropertyIsEqualTo>
+                <ogc:PropertyName>fclass</ogc:PropertyName>
+                <ogc:Literal>dog_park</ogc:Literal>
+              </ogc:PropertyIsEqualTo>
+            </ogc:Or>
+          </ogc:Filter>
+          <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
+          <sld:MaxScaleDenominator>3500</sld:MaxScaleDenominator>
+          <sld:PointSymbolizer>
+            <sld:Graphic>
+              <sld:Mark>
+                <sld:WellKnownName>circle</sld:WellKnownName>
+                <sld:Fill>
+                  <sld:CssParameter name="fill">#008000</sld:CssParameter>
+                </sld:Fill>
+              </sld:Mark>
+              <sld:Size>6</sld:Size>
+            </sld:Graphic>
+          </sld:PointSymbolizer>
+
+          <sld:TextSymbolizer>
+            <sld:Label>
+              <ogc:PropertyName>name</ogc:PropertyName>
+            </sld:Label>
+            <sld:Font>
+              <sld:CssParameter name="font-family">Noto Sans, Arial, sans-serif</sld:CssParameter>
+              <sld:CssParameter name="font-size">9</sld:CssParameter>
+              <sld:CssParameter name="font-style">normal</sld:CssParameter>
+              <sld:CssParameter name="font-weight">normal</sld:CssParameter>
+            </sld:Font>
+            <sld:LabelPlacement>
+              <sld:PointPlacement>
+                <sld:AnchorPoint>
+                  <sld:AnchorX>0.5</sld:AnchorX>
+                  <sld:AnchorY>0.5</sld:AnchorY>
+                </sld:AnchorPoint>
+                <sld:Displacement>
+                  <sld:DisplacementX>0</sld:DisplacementX>
+                  <sld:DisplacementY>-10</sld:DisplacementY>
+                </sld:Displacement>
+              </sld:PointPlacement>
+            </sld:LabelPlacement>
+            <sld:Fill>
+              <sld:CssParameter name="fill">#008000</sld:CssParameter>
+            </sld:Fill>
+            <sld:Halo>
+              <sld:Radius>
+                <ogc:Literal>1</ogc:Literal>
+              </sld:Radius>
+              <sld:Fill>
+                <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
+              </sld:Fill>
+            </sld:Halo>
+          </sld:TextSymbolizer>
+        </sld:Rule>
+        <sld:Rule>
           <sld:Name>poi_misc</sld:Name>
           <sld:Title>poi_misc</sld:Title>
           <ogc:Filter>
@@ -1026,6 +1094,10 @@
               <ogc:PropertyIsEqualTo>
                 <ogc:PropertyName>fclass</ogc:PropertyName>
                 <ogc:Literal>waste_basket</ogc:Literal>
+              </ogc:PropertyIsEqualTo>
+              <ogc:PropertyIsEqualTo>
+                <ogc:PropertyName>fclass</ogc:PropertyName>
+                <ogc:Literal>telephone</ogc:Literal>
               </ogc:PropertyIsEqualTo>
               <ogc:PropertyIsEqualTo>
                 <ogc:PropertyName>fclass</ogc:PropertyName>

@@ -626,7 +626,9 @@ def gen_pois():
         (["sports_centre", "pitch", "stadium", "tennis_court", "swimming_pool",
           "golf_course"],
          "#0092da", 6, "sports"),
+        (["park", "playground", "dog_park"], "#008000", 6, "leisure"),
         (["toilet", "bench", "drinking_water", "fountain", "waste_basket",
+          "telephone",
           "recycling", "recycling_glass", "recycling_paper", "recycling_clothes",
           "recycling_metal", "graveyard", "hunting_stand", "fire_hydrant",
           "emergency_phone", "emergency_access", "camera_surveillance"],
@@ -769,6 +771,7 @@ def gen_adminareas_a():
     """gis_osm_adminareas_a_free_1.sld — Polygon"""
     r = ""
     items = [
+        ("admin_area",   "#a37da1", 1, 9),
         ("national",     "#8d618b", 7, 12),
         ("admin_level1", "#8d618b", 5, 11),
         ("admin_level3", "#a37da1", 3, 10),
