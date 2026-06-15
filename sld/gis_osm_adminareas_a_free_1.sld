@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sld:StyledLayerDescriptor
-    xmlns="http://www.opengis.net/sld"
     xmlns:sld="http://www.opengis.net/sld"
+    xmlns="http://www.opengis.net/sld"
     xmlns:ogc="http://www.opengis.net/ogc"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd"
-    version="1.0.0">
+    xmlns:gml="http://www.opengis.net/gml">
 
   <sld:NamedLayer>
     <sld:Name>gis_osm_adminareas_a_free_1</sld:Name>
     <sld:UserStyle>
       <sld:Name>gis_osm_adminareas_a_free_1_style</sld:Name>
-      <sld:Title>Administrative Areas (Area) - OSM Carto z17</sld:Title>
-      <sld:Abstract>OSM Carto z17 style for Geofabrik gis_osm_adminareas_a_free_1</sld:Abstract>
-      <sld:IsDefault>1</sld:IsDefault>
       <sld:FeatureTypeStyle>
         <sld:Name>gis_osm_adminareas_a_free_1_fts</sld:Name>
-        <sld:Title>Administrative Areas (Area) - OSM Carto z17</sld:Title>
-        <sld:SemanticTypeIdentifier>generic:geometry</sld:SemanticTypeIdentifier>
         <sld:Rule>
           <sld:Name>admin_admin_area</sld:Name>
-          <sld:Title>admin_admin_area</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -72,7 +63,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>admin_national</sld:Name>
-          <sld:Title>admin_national</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -123,7 +113,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>admin_admin_level1</sld:Name>
-          <sld:Title>admin_admin_level1</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -174,7 +163,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>admin_admin_level3</sld:Name>
-          <sld:Title>admin_admin_level3</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -225,7 +213,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>admin_admin_level4</sld:Name>
-          <sld:Title>admin_admin_level4</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -276,7 +263,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>admin_admin_level5</sld:Name>
-          <sld:Title>admin_admin_level5</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -327,7 +313,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>admin_admin_level6</sld:Name>
-          <sld:Title>admin_admin_level6</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -378,7 +363,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>admin_admin_level7</sld:Name>
-          <sld:Title>admin_admin_level7</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -429,7 +413,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>admin_admin_level8</sld:Name>
-          <sld:Title>admin_admin_level8</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -480,7 +463,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>admin_admin_level9</sld:Name>
-          <sld:Title>admin_admin_level9</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -531,7 +513,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>admin_admin_level10</sld:Name>
-          <sld:Title>admin_admin_level10</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -582,7 +563,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>admin_admin_level11</sld:Name>
-          <sld:Title>admin_admin_level11</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>

@@ -1,6 +1,9 @@
 # OSM Carto reference clone (source project, not part of this repo)
 openstreetmap-carto/
 
+# IDE
+.idea/
+
 # Python
 __pycache__/
 *.pyc

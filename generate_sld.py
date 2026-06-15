@@ -27,13 +27,10 @@ Z17_MAX_SCALE_DENOM = 5000
 
 SLD_HEADER = '''<?xml version="1.0" encoding="UTF-8"?>
 <sld:StyledLayerDescriptor
-    xmlns="http://www.opengis.net/sld"
     xmlns:sld="http://www.opengis.net/sld"
+    xmlns="http://www.opengis.net/sld"
     xmlns:ogc="http://www.opengis.net/ogc"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd"
-    version="1.0.0">
+    xmlns:gml="http://www.opengis.net/gml">
 '''
 
 SLD_FOOTER = '</sld:StyledLayerDescriptor>\n'
@@ -239,8 +236,7 @@ def rule(name, filter_str, scale_str, sym_list):
     syms = "\n".join(sym_list)
     return f'''
         <sld:Rule>
-          <sld:Name>{name}</sld:Name>
-          <sld:Title>{name}</sld:Title>{filter_str}{scale_str}{syms}
+          <sld:Name>{name}</sld:Name>{filter_str}{scale_str}{syms}
         </sld:Rule>'''
 
 
@@ -251,13 +247,8 @@ def named_layer(layer_geom_name, title, rules_xml):
     <sld:Name>{layer_geom_name}</sld:Name>
     <sld:UserStyle>
       <sld:Name>{layer_geom_name}_style</sld:Name>
-      <sld:Title>{esc(title)}</sld:Title>
-      <sld:Abstract>OSM Carto z17 style for Geofabrik {layer_geom_name}</sld:Abstract>
-      <sld:IsDefault>1</sld:IsDefault>
       <sld:FeatureTypeStyle>
-        <sld:Name>{layer_geom_name}_fts</sld:Name>
-        <sld:Title>{esc(title)}</sld:Title>
-        <sld:SemanticTypeIdentifier>generic:geometry</sld:SemanticTypeIdentifier>{rules_xml}
+        <sld:Name>{layer_geom_name}_fts</sld:Name>{rules_xml}
       </sld:FeatureTypeStyle>
     </sld:UserStyle>
   </sld:NamedLayer>'''

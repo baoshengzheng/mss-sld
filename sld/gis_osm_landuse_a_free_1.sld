@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sld:StyledLayerDescriptor
-    xmlns="http://www.opengis.net/sld"
     xmlns:sld="http://www.opengis.net/sld"
+    xmlns="http://www.opengis.net/sld"
     xmlns:ogc="http://www.opengis.net/ogc"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd"
-    version="1.0.0">
+    xmlns:gml="http://www.opengis.net/gml">
 
   <sld:NamedLayer>
     <sld:Name>gis_osm_landuse_a_free_1</sld:Name>
     <sld:UserStyle>
       <sld:Name>gis_osm_landuse_a_free_1_style</sld:Name>
-      <sld:Title>Land Use (Area) - OSM Carto z17</sld:Title>
-      <sld:Abstract>OSM Carto z17 style for Geofabrik gis_osm_landuse_a_free_1</sld:Abstract>
-      <sld:IsDefault>1</sld:IsDefault>
       <sld:FeatureTypeStyle>
         <sld:Name>gis_osm_landuse_a_free_1_fts</sld:Name>
-        <sld:Title>Land Use (Area) - OSM Carto z17</sld:Title>
-        <sld:SemanticTypeIdentifier>generic:geometry</sld:SemanticTypeIdentifier>
         <sld:Rule>
           <sld:Name>landuse_forest</sld:Name>
-          <sld:Title>landuse_forest</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -38,7 +29,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>landuse_park</sld:Name>
-          <sld:Title>landuse_park</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -55,7 +45,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>landuse_residential</sld:Name>
-          <sld:Title>landuse_residential</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -76,7 +65,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>landuse_industrial</sld:Name>
-          <sld:Title>landuse_industrial</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -97,7 +85,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>landuse_commercial</sld:Name>
-          <sld:Title>landuse_commercial</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -118,7 +105,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>landuse_retail</sld:Name>
-          <sld:Title>landuse_retail</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -139,7 +125,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>landuse_farmland</sld:Name>
-          <sld:Title>landuse_farmland</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -160,7 +145,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>landuse_farmyard</sld:Name>
-          <sld:Title>landuse_farmyard</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -181,7 +165,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>landuse_meadow</sld:Name>
-          <sld:Title>landuse_meadow</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -198,7 +181,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>landuse_grass</sld:Name>
-          <sld:Title>landuse_grass</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -215,7 +197,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>landuse_allotments</sld:Name>
-          <sld:Title>landuse_allotments</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -232,7 +213,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>landuse_cemetery</sld:Name>
-          <sld:Title>landuse_cemetery</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -249,7 +229,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>landuse_recreation_ground</sld:Name>
-          <sld:Title>landuse_recreation_ground</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -266,7 +245,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>landuse_orchard</sld:Name>
-          <sld:Title>landuse_orchard</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -283,7 +261,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>landuse_vineyard</sld:Name>
-          <sld:Title>landuse_vineyard</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -300,7 +277,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>landuse_scrub</sld:Name>
-          <sld:Title>landuse_scrub</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -317,7 +293,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>landuse_heath</sld:Name>
-          <sld:Title>landuse_heath</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -334,7 +309,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>landuse_quarry</sld:Name>
-          <sld:Title>landuse_quarry</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -351,7 +325,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>landuse_landfill</sld:Name>
-          <sld:Title>landuse_landfill</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -372,7 +345,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>landuse_military</sld:Name>
-          <sld:Title>landuse_military</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>

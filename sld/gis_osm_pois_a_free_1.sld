@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sld:StyledLayerDescriptor
-    xmlns="http://www.opengis.net/sld"
     xmlns:sld="http://www.opengis.net/sld"
+    xmlns="http://www.opengis.net/sld"
     xmlns:ogc="http://www.opengis.net/ogc"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd"
-    version="1.0.0">
+    xmlns:gml="http://www.opengis.net/gml">
 
   <sld:NamedLayer>
     <sld:Name>gis_osm_pois_a_free_1</sld:Name>
     <sld:UserStyle>
       <sld:Name>gis_osm_pois_a_free_1_style</sld:Name>
-      <sld:Title>POIs (Area) - OSM Carto z17</sld:Title>
-      <sld:Abstract>OSM Carto z17 style for Geofabrik gis_osm_pois_a_free_1</sld:Abstract>
-      <sld:IsDefault>1</sld:IsDefault>
       <sld:FeatureTypeStyle>
         <sld:Name>gis_osm_pois_a_free_1_fts</sld:Name>
-        <sld:Title>POIs (Area) - OSM Carto z17</sld:Title>
-        <sld:SemanticTypeIdentifier>generic:geometry</sld:SemanticTypeIdentifier>
         <sld:Rule>
           <sld:Name>pois_area_university</sld:Name>
-          <sld:Title>pois_area_university</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -89,7 +80,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>pois_area_hospital</sld:Name>
-          <sld:Title>pois_area_hospital</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -149,7 +139,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>pois_area_place_of_worship</sld:Name>
-          <sld:Title>pois_area_place_of_worship</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -225,7 +214,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>pois_area_supermarket</sld:Name>
-          <sld:Title>pois_area_supermarket</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -289,7 +277,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>pois_area_police</sld:Name>
-          <sld:Title>pois_area_police</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -353,7 +340,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>pois_area_sports_centre</sld:Name>
-          <sld:Title>pois_area_sports_centre</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -413,7 +399,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>pois_area_swimming_pool</sld:Name>
-          <sld:Title>pois_area_swimming_pool</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -467,7 +452,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>pois_area_golf_course</sld:Name>
-          <sld:Title>pois_area_golf_course</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -521,7 +505,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>pois_area_restaurant</sld:Name>
-          <sld:Title>pois_area_restaurant</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -593,7 +576,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>pois_area_hotel</sld:Name>
-          <sld:Title>pois_area_hotel</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -661,7 +643,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>pois_area_museum</sld:Name>
-          <sld:Title>pois_area_museum</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -733,7 +714,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>pois_area_grave_yard</sld:Name>
-          <sld:Title>pois_area_grave_yard</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -787,7 +767,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>pois_area_market_place</sld:Name>
-          <sld:Title>pois_area_market_place</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -841,7 +820,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>pois_area_camp_site</sld:Name>
-          <sld:Title>pois_area_camp_site</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>

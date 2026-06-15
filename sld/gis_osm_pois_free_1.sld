@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sld:StyledLayerDescriptor
-    xmlns="http://www.opengis.net/sld"
     xmlns:sld="http://www.opengis.net/sld"
+    xmlns="http://www.opengis.net/sld"
     xmlns:ogc="http://www.opengis.net/ogc"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd"
-    version="1.0.0">
+    xmlns:gml="http://www.opengis.net/gml">
 
   <sld:NamedLayer>
     <sld:Name>gis_osm_pois_free_1</sld:Name>
     <sld:UserStyle>
       <sld:Name>gis_osm_pois_free_1_style</sld:Name>
-      <sld:Title>POIs (Point) - OSM Carto z17</sld:Title>
-      <sld:Abstract>OSM Carto z17 style for Geofabrik gis_osm_pois_free_1</sld:Abstract>
-      <sld:IsDefault>1</sld:IsDefault>
       <sld:FeatureTypeStyle>
         <sld:Name>gis_osm_pois_free_1_fts</sld:Name>
-        <sld:Title>POIs (Point) - OSM Carto z17</sld:Title>
-        <sld:SemanticTypeIdentifier>generic:geometry</sld:SemanticTypeIdentifier>
         <sld:Rule>
           <sld:Name>poi_gastronomy</sld:Name>
-          <sld:Title>poi_gastronomy</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -107,7 +98,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>poi_money</sld:Name>
-          <sld:Title>poi_money</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -169,7 +159,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>poi_accommodation</sld:Name>
-          <sld:Title>poi_accommodation</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -263,7 +252,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>poi_tourism</sld:Name>
-          <sld:Title>poi_tourism</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -397,7 +385,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>poi_health</sld:Name>
-          <sld:Title>poi_health</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -475,7 +462,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>poi_education</sld:Name>
-          <sld:Title>poi_education</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -553,7 +539,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>poi_shopping</sld:Name>
-          <sld:Title>poi_shopping</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -735,7 +720,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>poi_public</sld:Name>
-          <sld:Title>poi_public</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -841,7 +825,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>poi_culture</sld:Name>
-          <sld:Title>poi_culture</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -907,7 +890,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>poi_sports</sld:Name>
-          <sld:Title>poi_sports</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -985,7 +967,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>poi_leisure</sld:Name>
-          <sld:Title>poi_leisure</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -1051,7 +1032,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>poi_misc</sld:Name>
-          <sld:Title>poi_misc</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -1173,7 +1153,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>poi_man_made</sld:Name>
-          <sld:Title>poi_man_made</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -1267,7 +1246,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>poi_vending</sld:Name>
-          <sld:Title>poi_vending</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -1341,7 +1319,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>poi_services</sld:Name>
-          <sld:Title>poi_services</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>

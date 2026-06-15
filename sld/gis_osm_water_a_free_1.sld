@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sld:StyledLayerDescriptor
-    xmlns="http://www.opengis.net/sld"
     xmlns:sld="http://www.opengis.net/sld"
+    xmlns="http://www.opengis.net/sld"
     xmlns:ogc="http://www.opengis.net/ogc"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd"
-    version="1.0.0">
+    xmlns:gml="http://www.opengis.net/gml">
 
   <sld:NamedLayer>
     <sld:Name>gis_osm_water_a_free_1</sld:Name>
     <sld:UserStyle>
       <sld:Name>gis_osm_water_a_free_1_style</sld:Name>
-      <sld:Title>Water Bodies (Area) - OSM Carto z17</sld:Title>
-      <sld:Abstract>OSM Carto z17 style for Geofabrik gis_osm_water_a_free_1</sld:Abstract>
-      <sld:IsDefault>1</sld:IsDefault>
       <sld:FeatureTypeStyle>
         <sld:Name>gis_osm_water_a_free_1_fts</sld:Name>
-        <sld:Title>Water Bodies (Area) - OSM Carto z17</sld:Title>
-        <sld:SemanticTypeIdentifier>generic:geometry</sld:SemanticTypeIdentifier>
         <sld:Rule>
           <sld:Name>water_body</sld:Name>
-          <sld:Title>water_body</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -52,7 +43,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>water_glacier</sld:Name>
-          <sld:Title>water_glacier</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -74,7 +64,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>water_wetland</sld:Name>
-          <sld:Title>water_wetland</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -92,7 +81,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>water_label</sld:Name>
-          <sld:Title>water_label</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>

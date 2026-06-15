@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sld:StyledLayerDescriptor
-    xmlns="http://www.opengis.net/sld"
     xmlns:sld="http://www.opengis.net/sld"
+    xmlns="http://www.opengis.net/sld"
     xmlns:ogc="http://www.opengis.net/ogc"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd"
-    version="1.0.0">
+    xmlns:gml="http://www.opengis.net/gml">
 
   <sld:NamedLayer>
     <sld:Name>gis_osm_traffic_free_1</sld:Name>
     <sld:UserStyle>
       <sld:Name>gis_osm_traffic_free_1_style</sld:Name>
-      <sld:Title>Traffic (Point) - OSM Carto z17</sld:Title>
-      <sld:Abstract>OSM Carto z17 style for Geofabrik gis_osm_traffic_free_1</sld:Abstract>
-      <sld:IsDefault>1</sld:IsDefault>
       <sld:FeatureTypeStyle>
         <sld:Name>gis_osm_traffic_free_1_fts</sld:Name>
-        <sld:Title>Traffic (Point) - OSM Carto z17</sld:Title>
-        <sld:SemanticTypeIdentifier>generic:geometry</sld:SemanticTypeIdentifier>
         <sld:Rule>
           <sld:Name>traffic_traffic_signals</sld:Name>
-          <sld:Title>traffic_traffic_signals</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -44,7 +35,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>traffic_mini_roundabout</sld:Name>
-          <sld:Title>traffic_mini_roundabout</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -67,7 +57,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>traffic_crossing</sld:Name>
-          <sld:Title>traffic_crossing</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -90,7 +79,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>traffic_fuel</sld:Name>
-          <sld:Title>traffic_fuel</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -113,7 +101,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>traffic_service</sld:Name>
-          <sld:Title>traffic_service</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -136,7 +123,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>traffic_parking</sld:Name>
-          <sld:Title>traffic_parking</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -177,7 +163,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>traffic_parking_bicycle</sld:Name>
-          <sld:Title>traffic_parking_bicycle</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -206,7 +191,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>traffic_slipway</sld:Name>
-          <sld:Title>traffic_slipway</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -229,7 +213,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>traffic_marina</sld:Name>
-          <sld:Title>traffic_marina</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -252,7 +235,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>traffic_pier</sld:Name>
-          <sld:Title>traffic_pier</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -275,7 +257,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>traffic_dam</sld:Name>
-          <sld:Title>traffic_dam</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -298,7 +279,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>traffic_waterfall</sld:Name>
-          <sld:Title>traffic_waterfall</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -321,7 +301,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>traffic_lock_gate</sld:Name>
-          <sld:Title>traffic_lock_gate</sld:Title>
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
@@ -350,7 +329,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>traffic_stop</sld:Name>
-          <sld:Title>traffic_stop</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -373,7 +351,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>traffic_turning_circle</sld:Name>
-          <sld:Title>traffic_turning_circle</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -396,7 +373,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>traffic_speed_camera</sld:Name>
-          <sld:Title>traffic_speed_camera</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -419,7 +395,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>traffic_street_lamp</sld:Name>
-          <sld:Title>traffic_street_lamp</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -442,7 +417,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>traffic_ford</sld:Name>
-          <sld:Title>traffic_ford</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -465,7 +439,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>traffic_motorway_junction</sld:Name>
-          <sld:Title>traffic_motorway_junction</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>

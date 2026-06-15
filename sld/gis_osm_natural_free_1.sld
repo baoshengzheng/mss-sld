@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sld:StyledLayerDescriptor
-    xmlns="http://www.opengis.net/sld"
     xmlns:sld="http://www.opengis.net/sld"
+    xmlns="http://www.opengis.net/sld"
     xmlns:ogc="http://www.opengis.net/ogc"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd"
-    version="1.0.0">
+    xmlns:gml="http://www.opengis.net/gml">
 
   <sld:NamedLayer>
     <sld:Name>gis_osm_natural_free_1</sld:Name>
     <sld:UserStyle>
       <sld:Name>gis_osm_natural_free_1_style</sld:Name>
-      <sld:Title>Natural Features (Point) - OSM Carto z17</sld:Title>
-      <sld:Abstract>OSM Carto z17 style for Geofabrik gis_osm_natural_free_1</sld:Abstract>
-      <sld:IsDefault>1</sld:IsDefault>
       <sld:FeatureTypeStyle>
         <sld:Name>gis_osm_natural_free_1_fts</sld:Name>
-        <sld:Title>Natural Features (Point) - OSM Carto z17</sld:Title>
-        <sld:SemanticTypeIdentifier>generic:geometry</sld:SemanticTypeIdentifier>
         <sld:Rule>
           <sld:Name>natural_peak</sld:Name>
-          <sld:Title>natural_peak</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -77,7 +68,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>natural_volcano</sld:Name>
-          <sld:Title>natural_volcano</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -133,7 +123,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>natural_spring</sld:Name>
-          <sld:Title>natural_spring</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -156,7 +145,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>natural_cave_entrance</sld:Name>
-          <sld:Title>natural_cave_entrance</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -179,7 +167,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>natural_tree</sld:Name>
-          <sld:Title>natural_tree</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -202,7 +189,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>natural_beach</sld:Name>
-          <sld:Title>natural_beach</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -225,7 +211,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>natural_mine</sld:Name>
-          <sld:Title>natural_mine</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -248,7 +233,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>natural_cliff</sld:Name>
-          <sld:Title>natural_cliff</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -271,7 +255,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>natural_glacier</sld:Name>
-          <sld:Title>natural_glacier</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>

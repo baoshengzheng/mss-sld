@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sld:StyledLayerDescriptor
-    xmlns="http://www.opengis.net/sld"
     xmlns:sld="http://www.opengis.net/sld"
+    xmlns="http://www.opengis.net/sld"
     xmlns:ogc="http://www.opengis.net/ogc"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd"
-    version="1.0.0">
+    xmlns:gml="http://www.opengis.net/gml">
 
   <sld:NamedLayer>
     <sld:Name>gis_osm_places_free_1</sld:Name>
     <sld:UserStyle>
       <sld:Name>gis_osm_places_free_1_style</sld:Name>
-      <sld:Title>Places (Point) - OSM Carto z17</sld:Title>
-      <sld:Abstract>OSM Carto z17 style for Geofabrik gis_osm_places_free_1</sld:Abstract>
-      <sld:IsDefault>1</sld:IsDefault>
       <sld:FeatureTypeStyle>
         <sld:Name>gis_osm_places_free_1_fts</sld:Name>
-        <sld:Title>Places (Point) - OSM Carto z17</sld:Title>
-        <sld:SemanticTypeIdentifier>generic:geometry</sld:SemanticTypeIdentifier>
         <sld:Rule>
           <sld:Name>place_city</sld:Name>
-          <sld:Title>place_city</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -65,7 +56,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>place_town</sld:Name>
-          <sld:Title>place_town</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -109,7 +99,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>place_suburb</sld:Name>
-          <sld:Title>place_suburb</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -153,7 +142,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>place_village</sld:Name>
-          <sld:Title>place_village</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -197,7 +185,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>place_hamlet</sld:Name>
-          <sld:Title>place_hamlet</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -241,7 +228,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>place_island</sld:Name>
-          <sld:Title>place_island</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -285,7 +271,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>place_locality</sld:Name>
-          <sld:Title>place_locality</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -329,7 +314,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>place_farm</sld:Name>
-          <sld:Title>place_farm</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -373,7 +357,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>place_dwelling</sld:Name>
-          <sld:Title>place_dwelling</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -417,7 +400,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>place_region</sld:Name>
-          <sld:Title>place_region</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -461,7 +443,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>place_county</sld:Name>
-          <sld:Title>place_county</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
@@ -505,7 +486,6 @@
         </sld:Rule>
         <sld:Rule>
           <sld:Name>place_national_capital</sld:Name>
-          <sld:Title>place_national_capital</sld:Title>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>fclass</ogc:PropertyName>
