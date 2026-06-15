@@ -1,0 +1,2355 @@
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+OpenStreetMap Data in
+Layered GIS Format
+Free Shapefiles and GeoPackages ­ 2026-04-02
+Michael Reichert <reichert@geofabrik.de>
+Frederik Ramm <frederik.ramm@geofabrik.de>
+Table of Contents
+1 Preface.......................................................................................................................................................2 2 Introduction.............................................................................................................................................2
+2.1 Versions............................................................................................................................................2 2.2 Map datum.......................................................................................................................................2 2.3 Character encoding.......................................................................................................................2 2.4 Attribute names..............................................................................................................................2 2.5 Common attributes........................................................................................................................3 2.6 International Names......................................................................................................................3 2.7 Layers................................................................................................................................................3 2.8 Points and Areas............................................................................................................................3 2.9 Spillover Shape Files......................................................................................................................4 3 Layer Overview.......................................................................................................................................4 4 Point Features..........................................................................................................................................5 4.1 Places ("places")..............................................................................................................................5 4.2 Points of Interest ("pois").............................................................................................................5 4.3 Places of Worship ("pofw")........................................................................................................11 4.4 Natural Features ("natural")......................................................................................................11 4.5 Traffic Related ("traffic").............................................................................................................12 4.6 Transport Infrastructure ("transport")....................................................................................13 5 Line Features.........................................................................................................................................13 5.1 Roads and Paths ("roads")..........................................................................................................13 5.2 Railways, Subways, Trams, Lifts, and Cable Cars ("railways").........................................15 5.3 Waterways ("waterways").........................................................................................................15 6 Polygon Features..................................................................................................................................16 6.1 Administrative Areas ("adminareas")......................................................................................16 6.2 Building outlines ("buildings")..................................................................................................17 6.3 Land use and land cover ("landuse").......................................................................................17 6.4 Protected areas ("protected_areas").........................................................................................18 6.5 Bodies of Water ("water")..........................................................................................................18 7 Differences to Commercial "0.8" Shapefiles/GeoPackages.........................................................19 7.1 Associated Area Layer................................................................................................................19 7.2 Missing Layers..............................................................................................................................19 7.3 Missing Feature Classes..............................................................................................................20 7.4 Missing Fields...............................................................................................................................21
+1
+
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+1 Preface
+The OpenStreetMap project has collected an enormous amount of free spatial data and the database is growing every day. Many people want to use this data for their own GIS projects but have been hindered by the use of a non-standard data format in the OSM project. This document describes a mapping from OSM data formats to the usual GIS formats to make the OSM data accessible to more people.
+The mapping from OSM data to other formats is not an exact science. OSM rules on how to map certain features are often not well defined and there is no mandatory quality control. This openness allows a lot of flexibility and is part of the reason why OSM has been able to collect so much data in such a short time frame, but it makes using the data more difficult. When using or exporting the data, many decisions have to be made on how to extract the different features into something usable for the task at hand.
+The mapping described in this document is in no way the only mapping possible, in fact there is an infinite number of possible mappings. In this document we have specified a general-use mapping of the basic features like roads, waterways, different land use types, and points of interest. Other uses might need specialized mappings, but they are out of the scope of this document.
+The format described in this document is used by Geofabrik to create Shapefiles (*.shp) and Geopackages (*.gpkg) which are offered for free download from download.geofabrik.de.
+2 Introduction
+2.1 Versions
+The commercially available Shapefiles and Geopackes from Geofabrik carry a version identifier in each layer name. The free shapes contain the name "free" in each layer name to distinguish them. The structure described in this document corresponds loosely to the "0.8" version of Geofabrik's commerical shape files and Geopackages.
+2.2 Map datum
+All coordinates are unprojected WGS84 (EPSG:4326).
+2.3 Character encoding
+All strings are encoded in UTF-8.
+2.4 Attribute names
+All attribute names are lower case. In shape files, attribute names are limited to 9 characters, hence abbreviations are used for longer attributes. The abbreviated names are provided in
+2
+
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+this document where applicable (e.g. "shp: whchair" for a column called "wheelchair").
+
+2.5 Common attributes
+
+Most layers/shape files will have the following columns/attributes:
+
+Attribute PostGIS Type
+
+Description
+
+osm_id
+
+BIGINT / VARCHAR(12)
+
+OSM ID taken from the ID of this feature (node_id, way_id, or relation_id) in the OSM database. In case several features in the OSM database are joined into one feature, this is one of the IDs. This ID is not necessarily unique because one OSM object can result in several geometry objects. Also note that when doing shape file exports, this will be exported as a VARCHAR type since shape files don't support long integers.
+
+code
+
+SMALLINT 4 digit code (between 1000 and 9999) defining the feature class. The first one or
+
+(2 Bytes)
+
+two digits define the layer, the last two or three digits the class inside a layer.
+
+fclass
+
+VARCHAR(40) Class name of this feature. This does not add any information that is not already in the "code" field but it is better readable.
+
+name
+
+VARCHAR(100) Name of this feature, like a street or place name. If the name in OSM contains obviously wrong data such as "fixme" or "none", it will be empty.
+
+The code and the combination of layer name+fclass always contains the same information.
+
+2.6 International Names
+In OpenStreetMap, every feature can have many names. The standard name is always the name used on the ground, locally, usually the name as it would be written on a sign. There may be any number of additional names in different languages, plus also a specific "international name". In cases where the local script is not latin script, the international name will often contain a transcribed version of the standard name.
+By default, Geofabrik layers will always carry the standard name, the one that is given in OSM's "name" tag. If you need additional name (e.g. international name or names in a specific language), that can be arranged in the paid export service ­ please contact us.
+
+2.7 Layers
+In OSM there are no layers in the traditional GIS sense. All features are in one big coherent database.
+For the purpose of the mapping described in this document, the features stored in the OSM database are extracted into different layers depending on their type.
+All layers defined in this document use the "osm_" prefix for their names.
+
+2.8 Points and Areas
+The availability of high-resolution aerial imagery has led to many POI features being recorded as areas (building or site outlines), not points, in OpenStreetMap. You will, for
+
+3
+
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+example, often find a restaurant or hotel drawn as an area. Features drawn as area in OpenStreetMap will be written to the layer with an _a suffix. Features drawn als line/point in OpenStreetMap will be written to the layer without an _a suffix.
+2.9 Spillover Shape Files
+For the shape file output format, whenever a layer becomes larger than 2 GB, additional shape files will be created. A shape file named "osm_pois_v08_1.shp" will spill over into shape files named "osm_pois_v08_2.shp", "osm_pois_v08_3.shp" and so on.
+Even if there is only a single shape file, it will always carry the postfix "_1" in the name.
+This is not the case for other output formats, like GeoPackage.
+
+3 Layer Overview
+
+The following layers are available:
+
+Geometry Code
+
+Layer
+
+Point
+
+10xx places
+
+2xxx pois
+
+20xx
+
+21xx
+
+22xx
+
+23xx
+
+24xx
+
+25xx
+
+26xx
+
+27xx
+
+29xx
+
+3xxx pofw
+
+41xx natural
+
+52xx traffic
+
+50xx transport
+
+Line
+
+51xx roads
+
+61xx railway
+
+81xx waterways
+
+Polygon
+
+12xx adminareas
+
+15xx buildings
+
+72xx landuse
+
+73xx protected_areas
+
+82xx water
+
+Description
+Cities, towns, suburbs, villages,... Points of Interest, therein: Public facilities such as government offices, post office, police, ... Hospitals, pharmacies, ... Culture, Leisure, ... Restaurants, pubs, cafes, ... Hotel, motels, and other places to stay the night Supermarkets, bakeries, ... Banks and atms Tourist information, sights, museums, ... Miscellaneous points of interest Places of worship such as churches, mosques, ... Natural features Traffic related Parking lots, petrol (gas) stations, ...
+Roads, tracks, paths, ... Railway, subways, light rail, trams, ... Rivers, canals, streams, ...
+Administrative boundaries Building outlines Forests, residential areas, industrial areas,... Nature reserves, national parks Lakes, ...
+
+4
+
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+
+4 Point Features
+
+4.1 Places ("places")
+Location for cities, towns, etc. Typically somewhere in the centre of the town.
+
+Additional attributes:
+
+Attribute PostGIS Type
+
+Description
+
+population INTEGER
+
+Number of people living in this place
+
+OSM Tags population=*
+
+Note that for many places the population is not available and will be set to 0. For islands the population is always 0.
+
+The following feature classes exist in this layer:
+
+code
+
+fclass
+
+1000
+
+1001 city
+
+1002 town
+
+1003 village 1004 hamlet 1005 national_capital
+
+Description
+As defined by national/state/provincial government. Often over 100,000 people As defined by national/state/provincial government. Generally smaller than a city, between 10,000 and 100,000 people As defined by national/state/provincial government. Generally smaller than a town, below 10,000 people As defined by national/state/provincial government. Generally smaller than a village, just a few houses A national capital
+
+1010 suburb 1020 island 1030 farm 1031 dwelling 1040 region 1041 county 1050 locality
+
+Named area of town or city Identifies an island Named farm Isolated dwelling (1 or 2 houses, smaller than hamlet) A region label (used in some areas only) A county label (used in some areas only) Other kind of named place
+
+OSM Tags
+place=city (but see 1005)
+place=town
+place=village
+place=hamlet
+place=city with either of (a) is_capital=country, (b) admin_level=2, (c) capital=yes and no admin_level set place=suburb place=island place=farm place=isolated_dwelling place=region place=county place=locality
+
+4.2 Points of Interest ("pois")
+
+The following feature classes exist in this layer:
+
+code group
+
+fclass
+
+20xx public
+
+2001
+
+police
+
+Description A police post or station.
+
+OSM Tags amenity=police
+5
+
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+
+code 2002 2004 2005 2006 2007 2008 2009 2010 2011
+
+group
+
+fclass fire_station post_box post_office telephone library town_hall courthouse prison embassy
+
+2012
+
+community_centre
+
+2013
+
+nursing_home
+
+2014
+
+arts_centre
+
+2015
+
+graveyard
+
+2016
+
+market_place
+
+2017
+
+consulate
+
+2030
+
+recycling
+
+2031
+
+recycling_glass
+
+2032
+
+recycling_paper
+
+2033
+
+recycling_clothes
+
+2034
+
+recycling_metal
+
+Description
+
+OSM Tags
+
+A fire station.
+
+amenity=fire_station
+
+A post box (for letters).
+
+amenity=post_box
+
+A post office.
+
+amenity=post_office
+
+A public telephone booth.
+
+amenity=telephone
+
+A library.
+
+amenity=library
+
+A town hall.
+
+amenity=townhall
+
+A court house.
+
+amenity=courthouse
+
+A prison.
+
+amenity=prison
+
+An embassy.
+
+amenity=embassy or office=diplomatic with diplomatic=embassy
+
+A public facility which is mostly used by local associations for events and festivities.
+
+amenity=community_centre
+
+A home for disabled or elderly
+
+amenity=nursing_home
+
+persons who need permanent care.
+
+A venue at which a variety of arts are performed or conducted, and may well be involved with the creation of those works, and run occasional courses.
+
+amenity=arts_centre
+
+A graveyard.
+
+amenity=grave_yard or landuse=cemetery
+
+A place where markets are held. amenity=marketplace
+
+A consulate.
+
+office=diplomatic with diplomatic=consulate
+
+A place (usually a container) where amenity=recycling with none you can drop waste for recycling. of the specifics below
+
+A place for recycling glass.
+
+... recycling:glass=yes or recycling:glass_bottles=yes
+
+A place for recycling paper.
+
+... recycling:paper=yes
+
+A place for recycling clothes.
+
+... recycling:clothes=yes
+
+A place for recycling metal.
+
+... recycling:scrap_metal=yes
+
+208x 2081 2082 2083 2084 2099 21xx health 2101 2110 2111
+
+university school kindergarten college public_building
+pharmacy hospital clinic
+
+2120 2121
+2129 22xx leisure
+
+doctors dentist veterinary
+
+Education A university. A school. A kindergarten (nursery). A college. An unspecified public building.
+A pharmacy. A hospital. A medical centre that does not admit inpatients. A medical practice. A dentist's practice. A veterinary (animal doctor)
+
+amenity=university amenity=school amenity=kindergarten amenity=college amenity=public_building
+amenity=pharmacy amenity=hospital amenity=clinic
+amenity=doctors amenity=dentist amenity=veterinary
+
+6
+
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+
+code 2201 2202 2203 2204 2205 2206
+
+group
+
+fclass theatre nightclub cinema park playground dog_park
+
+225x
+
+2251
+
+sports_centre
+
+2252
+
+pitch
+
+2253
+
+swimming_pool
+
+2254
+
+tennis_court
+
+2255
+
+golf_course
+
+2256
+
+stadium
+
+2257
+
+ice_rink
+
+Description
+
+OSM Tags
+
+A theatre.
+
+amenity=theatre
+
+A night club, or disco.
+
+amenity=nightclub
+
+A cinema.
+
+amenity=cinema
+
+A park.
+
+leisure=park
+
+A playground for children.
+
+leisure=playground
+
+An area where dogs are allowed to leisure=dog_park run free without a leash.
+
+Sports
+
+A facility where a range of sports leisure=sports_centre activities can be pursued.
+
+An area set aside for a specific sport.
+
+leisure=pitch
+
+A swimming pool or water park.
+
+amenity=swimming_pool, leisure=swimming_pool, sport=swimming, leisure=water_park
+
+A tennis court.
+
+sport=tennis
+
+A golf course.
+
+leisure=golf_course
+
+A stadium. The area of the stadium leisure=stadium may contain one or several pitches.
+
+An ice rink.
+
+leisure=ice_rink
+
+23xx catering
+
+2301
+
+restaurant
+
+2302
+
+fast_food
+
+2303
+
+cafe
+
+2304
+
+pub
+
+bar
+
+2305
+food_court 2306
+biergarten
+
+2307
+
+24xx accommodation
+
+2401
+
+hotel
+
+2402
+
+motel
+
+2403
+
+bed_and_breakfast
+
+2404
+
+guesthouse
+
+2405
+
+hostel
+
+2406
+
+chalet
+
+Catering services
+
+A normal restaurant.
+
+amenity=restaurant
+
+A fast-food restaurant.
+
+amenity=fast_food
+
+A cafe.
+
+amenity=cafe
+
+A pub.
+
+amenity=pub
+
+A bar. The difference between a pub amenity=bar and a bar is not clear but pubs tend to offer food while bars do not.
+
+A common seating area with various fast-food vendors.
+
+amenity=food_court
+
+An open-air area where food and amenity=biergarten drinks are served.
+
+(indoor)
+
+A hotel.
+
+tourism=hotel
+
+A motel.
+
+tourism=motel
+
+A facility offering bed and breakfast.
+
+tourism=bed_and_breakfast
+
+A guesthouse. The difference
+
+tourism=guest_house
+
+between hotel, bed and breakfast,
+
+and guest houses is not a strict one
+
+and OSM tends to use whatever the
+
+facility calls itself.
+
+A hostel (offering cheap
+
+tourism=hostel
+
+accomodation, often bunk beds in
+
+dormitories).
+
+A detached cottage, usually self- tourism=chalet catering.
+
+2420
+
+(outdoor)
+
+7
+
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+
+code group
+
+fclass
+
+2421
+
+shelter
+
+2422
+
+camp_site
+
+2423
+
+alpine_hut
+
+2424
+
+caravan_site
+
+Description
+
+OSM Tags
+
+All sorts of small shelters to protect amenity=shelter against bad weather conditions.
+
+A camp site or camping ground. tourism=camp_site
+
+An alpine hut is a building typically tourism=alpine_hut situated in mountains providing shelter and often food and beverages to visitors.
+
+A place where people with
+
+tourism=caravan_site
+
+caravans or motorhomes can stay
+
+overnight or longer.
+
+25xx shopping
+
+2501
+
+supermarket
+
+A supermarket.
+
+shop=supermarket
+
+2502
+
+bakery
+
+A bakery.
+
+shop=bakery
+
+2503
+
+kiosk
+
+A very small shop usually selling cigarettes, newspapers, sweets, snacks and beverages.
+
+shop=kiosk
+
+2504
+
+mall
+
+A shopping mall.
+
+shop=mall
+
+2505
+
+department_store A department store.
+
+shop=department_store
+
+2510
+
+general
+
+A general store, offering a broad range of products on a small area. Exists usually in rural and remote areas.
+
+shop=general
+
+2511
+
+convenience
+
+A convenience store is a small shop shop=convenience
+
+selling a subset of items you might
+
+find at a supermarket.
+
+2512
+
+clothes
+
+A clothes or fashion store.
+
+shop=clothes
+
+2513
+
+florist
+
+A store stelling flowers.
+
+shop=florist
+
+2514
+
+chemist
+
+A shop selling articles of personal shop=chemist hygiene, cosmetics, and household cleaning products.
+
+2515
+
+bookshop
+
+A book shop.
+
+shop=books
+
+2516
+
+butcher
+
+A butcher.
+
+shop=butcher
+
+2517
+
+shoe_shop
+
+A shoe shop.
+
+shop=shoes
+
+2518
+
+beverages
+
+A place where you can buy
+
+shop=alcohol, shop=beverages
+
+alcoholic and non-alcoholic
+
+beverages.
+
+2519
+
+optician
+
+A place where you can buy glasses. shop=optician
+
+2520
+
+jeweller
+
+A jewelry shop.
+
+shop=jewelry
+
+2521
+
+gift_shop
+
+A gift shop.
+
+shop=gift
+
+2522
+
+sports_shop
+
+A shop selling sports equipment. shop=sports
+
+2523
+
+stationery
+
+A shop selling stationery for
+
+shop=stationery
+
+private and office use.
+
+2524
+
+outdoor_shop
+
+A shop selling outdoor equiment. shop=outdoor
+
+2525
+
+mobile_phone_shop A shop for mobile phones.
+
+shop=mobile_phone
+
+2526
+
+toy_shop
+
+A toy store.
+
+shop=toys
+
+2527
+
+newsagent
+
+A show selling mainly newspapers shop=newsagent
+
+and magazines.
+
+2528
+
+greengrocer
+
+A shop selling fruit and vegetables. shop=greengrocer
+
+2529
+
+beauty_shop
+
+A shop that provides personal
+
+shop=beauty
+
+beauty services like a nail salon or
+
+tanning salon.
+
+8
+
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+
+code 2530 2541 2542 2543
+
+group
+
+fclass video_shop car_dealership bicycle_shop doityourself
+
+2544
+
+furniture_shop
+
+2546
+
+computer_shop
+
+2547
+
+garden_centre
+
+2561
+
+hairdresser
+
+2562
+
+car_repair
+
+2563
+
+car_rental
+
+2564
+
+car_wash
+
+2565
+
+car_sharing
+
+2566
+
+bicycle_rental
+
+2567
+
+travel_agent
+
+2568
+
+laundry
+
+2590
+
+vending_machine
+
+2591
+
+vending_cigarette
+
+2592
+
+vending_parking
+
+2593
+
+vending_drinks
+
+2594
+
+vending_tickets
+
+2600 money 2601 2602
+
+bank atm
+
+2700 tourism
+
+2701
+
+tourist_info
+
+2704
+
+tourist_map
+
+2705
+
+tourist_board
+
+2706
+
+tourist_guidepost
+
+2721
+
+attraction
+
+2722
+
+museum
+
+2723
+
+monument
+
+2724
+
+memorial
+
+Description A place where you can buy films. A car dealership. A bicycle shop. A do-it-yourself shop where you can buy tools and building materials. A furniture store. A computer shop. A place selling plants and gardening goods. A hair salon. A car garage. A place where you can rent a car. A car wash. A car sharing station. A place where you can rent bicycles. A travel agency. A place where you can wash clothes or have them cleaned. An unspecified vending machine.
+A cigarette vending machine. A vending machine for parking tickets.
+
+OSM Tags shop=video shop=car shop=bicycle shop=doityourself and shop=hardware
+shop=furniture shop=computer shop=garden_centre
+shop=hairdresser shop=car_repair amenity=car_rental amenity=car_wash amenity=car_sharing amenity=bicycle_rental
+shop=travel_agency shop=laundry, shop=dry_cleaning amenity=vending_machine with none of the specifics below vending=cigarettes vending=parking_tickets
+
+A vending machine for drinks.
+A vending machine for public transport tickets.
+
+amenity=vending_machine with vending=drinks
+amenity=vending_machine with vending=public_ transport_tickets
+
+A bank.
+
+amenity=bank
+
+A machine that lets you withdraw amenity=atm cash from your bank account.
+
+information
+
+Something that provides information to tourists; may or many not be manned.
+
+tourism=information with none of the specifics below
+
+A map displayed to inform tourists. tourism_information and information=map
+
+A board with explanations aimed at and information=board tourists.
+
+A guide post.
+
+and information=guidepost
+
+destinations
+
+A tourist attraction.
+
+tourism=attraction
+
+A museum.
+
+tourism=museum
+
+A monument.
+
+historic=monument
+
+A memorial.
+
+historic=memorial
+
+9
+
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+
+code 2725 2731 2732 2733 2734
+
+group
+
+fclass art castle ruins archaeological wayside_cross
+
+2735
+
+wayside_shrine
+
+2736
+
+battlefield
+
+2737
+
+fort
+
+2741
+
+picnic_site
+
+2742
+
+viewpoint
+
+2743
+
+zoo
+
+2744
+
+theme_park
+
+Description A permanent work of art. A castle. Ruins of historic significance. An excavation site. A wayside cross, not necessarily old. A wayside shrine. A historic battlefield. A fort. A picnic site. A viewpoint. A zoo. A theme park.
+
+OSM Tags tourism=artwork historic=castle historic=ruins historic=archaeological_site historic=wayside_criss
+historic=wayside_shrine historic=battlefield historic=fort tourism=picnic_site tourism=viewpoint tourism=zoo tourism=theme_park
+
+2900 miscpoi
+
+2901
+
+toilet
+
+Public toilets.
+
+amenity=toilets
+
+2902
+
+bench
+
+A public bench.
+
+amenity=bench
+
+2903
+
+drinking_water
+
+A tap or other source of drinking amenity=drinking_water
+
+water.
+
+2904
+
+fountain
+
+A fountain for cultural, decorative, amenity=fountain
+
+or recreational purposes.
+
+2905
+
+hunting_stand
+
+A hunting stand.
+
+amenity=hunting_stand
+
+2906
+
+waste_basket
+
+A waste basket.
+
+amenity=waste_basket
+
+2907
+
+camera_surveillance A surveillance camera.
+
+man_made=surveillance
+
+2921
+
+emergency_phone An emergency telephone.
+
+amenity=emergency_phone,
+
+emergency=phone
+
+2922
+
+fire_hydrant
+
+A firy hydrant.
+
+amenity=fire_hydrant, emergency=fire_hydrant
+
+2923
+
+emergency_access An emergency access point
+
+highway=emergency_access_
+
+(signposted place in e.g. woods the point
+
+location of which is known to
+
+emergency services).
+
+2950
+
+tower
+
+A tower of some kind.
+
+man_made=tower and none of the specifics below
+
+2951
+
+tower_comms
+
+A communications tower.
+
+man_made=tower and
+
+tower:type=communication
+
+2952
+
+water_tower
+
+A water tower.
+
+man_made=water_tower
+
+2953
+
+tower_observation An observation tower.
+
+man_made=tower and tower:type=observation
+
+2954
+
+windmill
+
+A windmill.
+
+man_made=windmill
+
+2955
+
+lighthouse
+
+A lighthouse.
+
+man_made=lighthouse
+
+2961
+
+wastewater_plant A wastewater treatment plant.
+
+man_made=wastewater_plant
+
+2962
+
+water_well
+
+A facility to access underground man_made=water_well
+
+aquifers.
+
+2963
+
+water_mill
+
+A mill driven by water. Often
+
+man_made=watermill
+
+historic.
+
+2964
+
+water_works
+
+A place where drinking water is man_made=water_works
+
+processed.
+
+10
+
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+
+4.3 Places of Worship ("pofw")
+
+The following feature classes exist in this layer:
+
+code
+
+fclass
+
+3000
+
+3100 christian
+
+3101 christian_anglican 3102 christian_catholic 3103 christian_evangelical 3104 christian_lutheran 3105 christian_methodist 3106 christian_orthodox 3107 christian_protestant 3108 christian_baptist 3109 christian_mormon 3200 jewish
+3300 muslim
+
+3301 muslim_sunni 3302 muslim_shia 3400 buddhist
+3500 hindu
+3600 taoist
+3700 shintoist
+3800 sikh
+
+Description
+
+OSM Tags
+
+Places of worship
+
+A christian place of worship (usually a church) without one of the denominations below.
+
+amenity=place_of_worship + religion=christian
+
+A christian place of worship where the
+
++ denomination=anglican
+
+denomination is known. (Note to German
+
++ denomination=catholic
+
+users: "protestant" is "evangelisch" in German; "evangelical" is "evangelikal" in German.)
+
++
+
+denomination=evangelical
+
++ denomination=lutheran
+
++ denomination=methodist
+
++ denomination=orthodox
+
++ denomination=protestant
+
++ denomination=baptist
+
++ denomination=mormon
+
+A jewish place of worship (usually a synagogue).
+
+amenity=place_of_worship + religion=jewish
+
+A muslim place of worhsip, (usually a mosque) without one of the denominations below.
+
+amenity=place_of_worship + religion=muslim
+
+A Sunni muslim place of worship.
+
++ denomination=sunni
+
+A Shia muslim place of worship.
+
++ denomination=shia
+
+A Buddhist place of worship.
+
+amenity=place_of_worship + religion=buddhist
+
+A Hindu place of worship.
+
+amenity=place_of_worship + religion=hindu
+
+A Taoist place of worship.
+
+amenity=place_of_worship + religion=taoist
+
+A Shintoist place of worship.
+
+amenity=place_of_worship + religion=shintoist
+
+A Sikh place of worship.
+
+amenity=place_of_worship + religion=sikh
+
+4.4 Natural Features ("natural")
+
+The following feature classes exist in this layer:
+
+code
+
+fclass
+
+4101 spring
+
+4103 glacier
+
+4111 peak
+
+4112 cliff
+
+4113 volcano
+
+4121 tree
+
+4131 mine
+
+4132 cave_entrance
+
+4141 beach
+
+Description A spring, possibly source of a stream. A glacier. A mountain peak. A cliff. A volcano. A tree. A mine. A cave entrance. A beach. (Note that beaches are only rarely mapped as point features.)
+
+OSM Tags natural=spring natural=glacier natural=peak natural=cliff natural=volcano natural=tree natural=mine natural=cave_entrance natural=beach
+
+11
+
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+
+4.5 Traffic Related ("traffic")
+This layer exists both as area and as point layer (see section 2.8).
+
+The following feature classes exist in this layer:
+
+code
+
+fclass
+
+Description
+
+OSM Tags
+
+5201 traffic_signals
+
+Traffic lights.
+
+highway=traffic_signals
+
+5202 mini_roundabout
+
+A small roundabout without physical strucutre, highway=mini_roundabout usually just painted onto the road surface.
+
+5203 stop
+
+A stop sign.
+
+highway=stop
+
+5204 crossing
+
+A place where the street is crossed by pedestrians or a railway.
+
+highway=crossing, railway=level_crossing
+
+5205 ford
+
+A place where the road runs through a river or highway=ford stream.
+
+5206 motorway_junction The place where a slipway enters or leaves a motorway.
+
+highway=motorway_juncti on
+
+5207 turning_circle
+
+An area at the end of a street where vehicles can highway=turning_circle turn.
+
+5208 speed_camera
+
+A camera that photographs speeding vehicles. highway=speed_camera
+
+5209 street_lamp
+
+A lamp illuminating the road.
+
+highway=street_lamp
+
+Fuel and Parking
+
+5250 fuel
+
+A gas station.
+
+amenity=fuel
+
+5251 service
+
+A service area, usually along motorways.
+
+highway=services
+
+5260 parking
+
+A car park of unknown type.
+
+amenity=parking with none of the specifics below and without access=private/ customers
+
+5261 parking_surface
+
+A surface car park.
+
+amenity=parking and... ... parking=surface and without access=private/ customers
+
+5262 parking_multistorey A multi storey car park.
+
+... parking=multi-storey and without access=private/ customers
+
+5263 parking_underground An underground car park.
+
+... parking=underground and without access=private /customers
+
+5264 parking_street
+
+On-street parking.
+
+... parking=street_side/lane and without access=private/ customers
+
+5270 parking_bicycle
+
+A place to park your bicycle.
+
+amenity=bicycle_parking and without access=private/customers
+
+5271 bicycle_repair_station A bicycle repair station.
+
+amenity=bicycle_repair_stat ion
+
+Water Traffic
+
+5301 slipway
+
+A slipway.
+
+leisure=slipway
+
+5302 marina
+
+A marina.
+
+leisure=marina
+
+5303 pier
+
+A pier.
+
+man_made=pier
+
+5311 dam
+
+A dam.
+
+waterway=dam
+
+5321 waterfall
+
+A waterfall.
+
+waterway=waterfall
+
+5331 lock_gate
+
+A lock gate.
+
+waterway=lock_gate
+
+12
+
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+
+code
+
+fclass
+
+5332 weir
+
+Description A barrier built across a river or stream.
+
+OSM Tags waterway=weir
+
+Note: Most of the 53xx type objects do sometimes appear as linear features in OSM as well but those are not yet available in the export files.
+
+4.6 Transport Infrastructure ("transport")
+This layer exists both as area and as point layer (see section 2.8).
+
+The following feature classes exist in this layer:
+
+code
+
+fclass
+
+5601 railway_station
+
+5602 railway_halt
+
+5603 tram_stop
+
+5621 bus_stop
+
+5622 bus_station
+5641 taxi_rank 565x 5651 airport
+
+5652 airfield
+
+5655 helipad 5656 apron
+566x 5661 ferry_terminal 567x 5671 aerialway_station
+
+Description A larger railway station of mainline rail services. A smaller, local railway station, or subway station.
+A tram stop.
+A bus stop.
+A large bus station with multiple platforms. A taxi rank. Air Traffic A large airport.
+A small airport or airfield.
+A place for landing helicopters. A apron (area where aircraft are parked) Water Traffic A ferry terminal. Other Traffic A station where cable cars or lifts alight.
+
+OSM Tags railway=station
+railway=halt, or public_transport=stop_position + train=yes railway=tram_stop, or public_transport=stop_position + tram=yes highway=bus_stop, or public_transport=stop_position + bus=yes amenity=bus_station
+amenity=taxi
+amenity=airport or aeroway=aerodrome unless type=airstrip aeroway=airfield, military=airfield, aeroway=aeroway with type=airstrip aeroway=helipad aeroway=apron
+amenity=ferry_terminal
+aerialway=station
+
+5 Line Features
+5.1 Roads and Paths ("roads")
+All kinds of roads from motorways to gravel tracks as well as cycleways, footpaths, etc. Additional attributes:
+13
+
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+
+Attribute PostGIS Type
+
+ref
+
+VARCHAR(20)
+
+oneway VARCHAR(1)
+
+maxspeed layer bridge tunnel
+
+SMALLINT SMALLINT VARCHAR(1) VARCHAR(1)
+
+Description Reference number of this road ('A 5', 'L 605', ...) Is this a oneway road? "F" means that only driving in direction of the linestring is allowed. "T" means that only the opposite direction is allowed. "B" (default value) means that both directions are ok. Max allowed speed in km/h Relative layering of roads (-5, ..., 0, ..., 5) Is this road on a bridge? ("T" = true, "F" = false) Is this road in a tunnel? ("T" = true, "F" = false)
+
+OSM Tags ref=* oneway=*
+maxspeed=* layer=* bridge=* tunnel=*
+
+The following feature classes exist in this layer:
+
+code
+
+fclass
+
+511x
+
+5111 motorway
+
+5112 trunk
+
+5113 primary
+
+5114 secondary
+
+5115 tertiary
+
+512x
+
+5121 unclassified
+
+5122 residential
+
+5123 living_street
+
+5124 pedestrian
+
+5125 busway
+
+513x 5131 motorway_link 5132 trunk_link 5133 primary_link 5134 secondary_link 5135 tertiary_link 514x 5141 service 5142 track
+
+5143 track_grade1 5144 track_grade2 5145 track_grade3 5146 track_grade4 5147 track_grade5 515x 5151 bridleway
+
+5152 cycleway
+
+Description
+
+OSM Tags
+
+Major roads
+
+Motorway/freeway
+
+highway=motorway
+
+Important roads, typically divided
+
+highway=trunk
+
+Primary roads, typically national.
+
+highway=primary
+
+Secondary roads, typically regional.
+
+highway=secondary
+
+Tertiary roads, typically local.
+
+highway=tertiary
+
+Minor Roads
+
+Smaller local roads
+
+highway=unclassified
+
+Roads in residential areas
+
+highway=residential
+
+Streets where pedestrians have priority
+
+highway=living_street
+
+Pedestrian only streets
+
+highway=pedestrian
+
+Dedicated roads for bus, usually closed for any mode highway=busway of transport except public transport.
+
+Highway links (sliproads/ramps)
+
+Roads that connect from one road to another of the highway=motorway_link
+
+same of lower category.
+
+highway=trunk_link
+
+highway=primary_link
+
+highway=secondary_link
+
+highway=tertiary_link
+
+Very small roads
+
+Service roads for access to buildings, parking lots, etc. highway=service
+
+For agricultural use, in forests, etc. Often gravel roads. highway=track without tracktype specification
+
+Tracks can be assigned a "tracktype" from 1 (asphalt ... with tracktype=grade1
+
+or heavily compacted) to 5 (hardly visible). A detailed ... with tracktype=grade2
+
+description is here: http://wiki.openstreetmap.org/wiki/Tracktype
+
+... with tracktype=grade3
+
+... with tracktype=grade4
+
+... with tracktype=grade5
+
+Paths unsuitable for cars
+
+Paths for horse riding
+
+highway=bridleway or highway=path with horse=designated
+
+Paths for cycling
+
+highway=cycleway or highway=path with cycle=designated
+
+14
+
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+
+code
+
+fclass
+
+5153 footway
+
+Footpaths
+
+Description
+
+5154 path 5155 steps 5199 unknown
+
+Unspecified paths
+Flights of steps on footpaths Unknown Unknown type of road or path
+
+OSM Tags highway=footway or highway=path with foot=designated highway=path without cycle/foot/horse=designated highway=steps
+highway=road
+
+5.2 Railways, Subways, Trams, Lifts, and Cable Cars ("railways")
+
+Railways do not have a name attribute. Instead, they have the following additional attributes:
+
+Attribute PostGIS Type
+
+Description
+
+layer
+
+SMALLINT Relative layering of railways/roads (-5, ..., 0, ..., 5)
+
+bridge
+
+VARCHAR(1) Is this road on a bridge? ("T" = true, "F" = false)
+
+tunnel
+
+VARCHAR(1) Is this road in a tunnel? ("T" = true, "F" = false)
+
+OSM Tags layer=* bridge=* tunnel=*
+
+The following feature classes exist in this layer:
+
+code
+
+fclass
+
+Description
+
+OSM Tags
+
+6101 rail
+
+Regular railway tracks.
+
+railway=rail (unless traction=* also set)
+
+6102 light_rail
+
+Light railway tracks, often commuter railway=light_rail railways.
+
+6103 subway
+
+Underground railway tracks.
+
+railway=subway
+
+6104 tram
+
+Tram tracks (may be incident with roads).
+
+railway=tram
+
+6105 monorail
+
+A monorail track.
+
+railway=monorail
+
+6106 narrow_gauge A narrow gauge railway track.
+
+railway=narrow_gauge
+
+6107 miniature
+
+A miniature railway track.
+
+railway=miniature
+
+6108 funicular
+
+A funicular, (cable railway) usually on railway=funicular, or railway=rail with
+
+a steep incline.
+
+traction=funicular
+
+6109 rack
+
+A rack railway
+
+railway=rack, or railway=rail with traction=rack or railway=rail with rack=yes
+
+6111 drag_lift
+
+An overhead tow-line for skiers.
+
+aerialway=drag_lift
+
+6112 chair_lift
+
+An open chairlift run.
+
+aerialway=chair_lift or high_speed_chair_lift
+
+6113 cable_car
+
+A cabin cable car run.
+
+aerialway=cable_car
+
+6114 gondola
+
+An aerialway where the cabins go around in a circle,
+
+aerialway=gondola
+
+6115 goods
+
+An aerialway for the transport of goods.
+
+aerialway=goods
+
+6119 other_lift
+
+Another type of lift.
+
+aerialway=one of platter, t-bar, j-bar, magic_ carpet, zip_line, rope_tow, or mixed_lift
+
+5.3 Waterways ("waterways")
+
+Additional attributes:
+
+Attribute PostGIS Type
+
+Description
+
+width
+
+SMALLINT
+
+Width of the waterway in metres.
+
+OSM Tags width=*
+
+15
+
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+
+The following feature classes exist in this layer:
+
+code fclass 8101 river 8102 stream 8103 canal 8104 drain
+
+Description A large river. A smaller river or stream. An artificial waterway. A small drainage ditch or similar structure.
+
+OSM Tags waterway=river waterway=stream waterway=canal waterway=drain
+
+Note that in OSM larger rivers are often available as polygon geometries and line geometries; the line geometry will then run through the middle of the river in the direction of the water flow.
+
+6 Polygon Features
+Polygon features are extracted from simple polygons and from multipolygons in OSM.
+
+6.1 Administrative Areas ("adminareas")
+This layer contains polygons built from boundary lines.
+
+The following feature classes exist in this layer:
+
+code
+
+fclass
+
+1200
+
+1201 admin_level1
+
+1202 national
+
+1203 admin_level3
+
+1204 admin_level4
+
+1205 admin_level5 1206 admin_level6
+
+1207 admin_level7 1208 admin_level8 1209 admin_level9 1210 admin_level10 1211 admin_level11
+
+Description
+
+OSM Tags
+
+boundary=administrative
+
++ admin_level=1
+
+National border
+
++ admin_level=2
+
++ admin_level=3
+
+Usually a border of the first level below national; NUTS-2 + admin_level=4 (Germany: Land, France: région, UK: England/ Scotland/Wales...).
+
++ admin_level=5
+
+Usually a border of the second level below national; NUTS-3 (Germany: Kreis, France: département, UK: county...).
+
++ admin_level=6
+
++ admin_level=7
+
+Usually a city or borough boundary.
+
++ admin_level=8
+
++ admin_level=9
+
++ admin_level=10
+
++ admin_level=11
+
+Note that due to editing errors introduced by OpenStreetMap contributors and also due to lack of data in some areas, there is no guarantee that these areas are complete; there may always be missing bits. Contact Geofabrik if you are interested in a redacted data set.
+
+Note that by default OSM neither has a codified hierarchy (i.e. city X is in county Y is in state Z...), nor do OSM boundaries end at the coastline ­ national and sometimes sub-national boundaries will include territorial waters. Data sets with a constructed hierarchy, or with a clipping of administrative areas to the coastline, can be ordered from Geofabrik.
+
+16
+
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+The exact meaning of the admin_levels 1 to 11 varies between countries and is documented in detail on the OpenStreetMap Wiki: http://wiki.openstreetmap.org/wiki/Admin_level
+
+6.2 Building outlines ("buildings")
+Buildings don't have a name attribute.
+
+Additional attributes:
+
+Attribute PostGIS Type
+
+Description
+
+OSM Tags
+
+type
+
+VARCHAR(20) The type of building, if specified in OSM; otherwise building=(anything
+
+empty.
+
+other than yes)
+
+The following feature classes exist in this layer:
+
+code
+
+layer
+
+1500 buildings
+
+fclass
+
+Description Building outlines
+
+building=*
+
+6.3 Land use and land cover ("landuse")
+
+The following feature classes exist in this layer:
+
+code
+
+fclass
+
+7201 forest
+
+7202 park
+
+7203 residential 7204 industrial 7206 cemetery 7207 allotments 7208 meadow 7209 commercial 7211 recreation_ground
+
+7212 retail 7213 military 7214 quarry 7215 orchard 7216 vineyard 7217 scrub 7218 grass 7219 heath
+7228 farmland
+7229 farmyard
+
+7233 landfill
+
+Description A forest or woodland.
+A park.
+A residential area. An industrial area. A cemetery or graveyard. An area with small private gardens. A meadow, possibly used for grazing cattle. A commercial area. An open green space for general recreation.
+An area mainly used by shops. Military landuse, usually no access for civilians. A quarry. An area used for growing fruit-bearing trees. An area used for growing grapes. An area where scrub grows. An area where grass grows. Heath areas. Agricultural land (areas where crops are grown) Area of land with farm buildings and the shrubbery/trees around them. A site for permanent or long term storage of waste materials.
+
+OSM Tags landuse=forest, natural=wood leisure=park, leisure=common landuse=residential landuse=industrial landuse=cemetery landuse=allotments landuse=meadow landuse=commercial leisure=recreation_ground or landuse_recreation_ground landuse=retail landuse=military landuse=quarry landuse=orchard landuse=vineyard landuse=scrub landuse=grass natural=heath landuse=farmland landuse=farmyard
+landuse=landfill
+
+17
+
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+
+6.4 Protected areas ("protected_areas")
+This layer contains areas where nature, wildlife or environment is protected by stricter rules than usual. The feature classes follow the ICUN (International Union for Conservation of Nature) categories for protected areas. See https://wiki.openstreetmap.org/wiki/ Key:protect_class for details.
+
+This layer has following additional attributes:
+
+Attribute PostGIS Type
+
+icun
+
+VARCHAR(10)
+
+title
+
+VARCHAR(100)
+
+Description ICUN category, may contain multiple values separated by semicolon An official national predicate or grade, the formal title or type of protection
+
+OSM Tags protect_class=*
+protection_title=*
+
+This layer contains the following feature classes:
+
+code
+
+fclass
+
+Description
+
+7300 other_nature_reserve Nature reserves without detailed specification leisure=nature_reserve about protection. If an area has an ICUN category (fallback only) assigned in OpenStreetMap, it will have any of the features classes below.
+
+7301 icun_1
+
+Strict Nature Reserve (ICUN 1a) or Wilderness boundary=protected_area +
+
+Area (ICUN 1b)
+
+protect_class=1/1a/1b
+
+7302 national_park
+
+National Park (ICUN 2)
+
+boundary=national_park or boundary=protected_area + protect_class=2
+
+7303 icun_3
+
+Natural Monument or Feature (ICUN 3)
+
+boundary=protected_area + protect_class=3
+
+7304 icun_4
+
+Habitat/Species Management Area (ICUN 4)
+
+boundary=protected_area + protect_class=4
+
+7305 icun_5
+
+Protected Landscape/Seascape (ICUN 5)
+
+boundary=protected_area + protect_class=5
+
+7306 icun_6
+
+Protected area with sustainable use of natural resources (ICUN 6)
+
+boundary=protected_area + protect_class=6
+
+7307 icun_7
+
+Smaller areas where some natural features are boundary=protected_area +
+
+protected (ICUN 7)
+
+protect_class=7
+
+7308 icun_8
+
+Area protected by international treaties, e.g. Natura 2000, EU Birds Directive, Alpine Convention, Ramsar Agreement
+
+boundary=protected_area + protect_class=97/98 or ramar=yes
+
+6.5 Bodies of Water ("water")
+
+The following feature classes exist in this layer:
+
+code fclass 8200 water
+8201 reservoir
+
+Description Unspecified bodies of water. Typically lakes, but can also be larger rivers, harbours, etc. Artificial lakes, typically above a dam.
+
+natural=water + water!=river/reservoir landuse=reservoir, natural=water + water=reservoir
+
+18
+
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+
+code fclass 8202 river
+8203 dock
+8211 glacier 8221 wetland
+
+Description Polygons for larger rivers.
+Dock (to repair ships, don't confuse it with the American term "dock") Glaciers Wetland
+
+waterway=riverbank, natural=water + water=river waterway=dock
+natural=glacier natural=wetland
+
+Note that in OSM larger rivers are often available as polygon geometries and line geometries; the line geometry will then run through the middle of the river in the direction of the water flow.
+
+7 Differences to Commercial "0.8" Shapefiles/GeoPackages
+Geofabrik offers an extended version of these shapes, for arbitrary areas, commercially. These 0.8 files contain the following extensions compared to the free files:
+
+7.1 Associated Area Layer
+If a feature class exists both as area and as points in OpenStreetMap, point layers in our o commercial data sets will contain a centroid point of the area. The geomtype field of this objects is set to "W" (way) or "R" (relation). If you are using both the polygon and the point layers of the commercial data sets, you will want to exclude all objects of a point layer with geomtype="W" or "R" prevent objects mapped as areas in OpenStreetMap being drawn twice.
+
+7.2 Missing Layers
+
+The Following layers are not part of the free shape files and GeoPackages. They are only available in the commercial datasets that can be purchased from Geofabrik:
+
+Geometry Point
+Line
+
+Code
+
+Layer
+
+Description
+
+64xx
+
+power
+
+Power generators, substations, ...
+
+11xx
+
+boundaries
+
+Borders between countries ...
+
+55xx
+
+barriers
+
+Natural or man-made barrier lines like fence, hedges or walls
+
+66xx
+
+powerlines
+
+Power lines
+
+67xx
+
+runways
+
+Runways and taxiways at airports
+
+83xx
+
+coastline
+
+Coastline
+
+53xx, 54xx, nonop 55xx, 56xx, 62xx, 63xx, 64xx, 65xx
+
+Roads and railways planned, under construction, or disused
+
+91xx
+
+cycle_route_segme Roads of cycle roads which are not available in the routes
+
+nts
+
+layer (codes 90xx).
+
+MultiLineString
+
+19
+
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+
+Geometry
+
+Code
+
+Layer
+
+90xx
+
+routes
+
+Description Routes for cycling, hiking, moutain bikes, nordic walking and running
+
+7.3 Missing Feature Classes
+
+The following table shows all feature classes which are not part of the free shape files and GeoPackages. Feature classes which are part of layers given in section 7.2 are not listed here.
+
+code(s) 1005 565x 5671 2524 2525 2529 2530 2260 2262 2263 2264 2265 2266 2407 2408 2506 2507 2508 2509 2531 2532 2533 2534 2535 2536 2537 2538 2539 2540 2541 2544 2548 2549 2550 2551 2552 2569 2570
+
+layer places transport transport pois pois pois pois pois pois pois pois pois pois pois pois pois pois pois pois pois pois pois pois pois pois pois pois pois pois pois pois pois pois pois pois pois pois pois
+
+national_capital airport, airfield, helipad, terminal aerialway_station outdoor_shop mobile_phone_shop beauty_shop video_shop bleachers horse_riding fishing sauna beach_resort dance apartment resort farm confectionery deli seafood electronics variety_store copyshop funeral_directors tailor interior_decoration ticket houseware boutique cosmetics car_dealership furniture_shop car_parts tyres trade pastry art motorcycle pet
+
+fclass(es)
+
+20
+
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+
+code(s) 2571 2572 2908 2909 2910 2921 2922 2923 4103 4114 4115 4116 4142 4143 4144 4145 4146 4121 5208 5209 521x, 522x 5657 7221 7222 7223 7224 7225 7226 7227 7230 7231 7232 7234 8105 8211 611x
+
+layer pois pois pois pois pois pois pois pois natural natural natural natural natural natural natural natural natural natural traffic traffic traffic transport landuse landuse landuse landuse landuse landuse landuse landuse landuse landuse landuse waterways water railways
+
+fclass(es) photo massage picnic_table outdoor_seating firepit emergency_phone fire_hydrant emergency_access_point glacier sinkhole hot_spring rock grassland bare_rocks sand scree fell tree speed_camera street_lamp barriers on roads and paths, e.g. lift gates and bollards; traffic calming terminal basin village_green plant_nursery brownfield greenfield construction railway greenhouses religous garages education ditch glacier drag_lift, chair_lift, cable_car, gondola, goods, other_lift
+
+7.4 Missing Fields
+
+The following fields are not available in the free shape files:
+
+Layer all layers
+
+Attribute lastchange
+
+PostGIS Type
+
+Description
+
+TIMESTAMP WITHOUT TIME ZONE
+
+Last change of this feature. Comes from the OSM last_changed attribute. Reflects changes in the attributes of a feature; changes in the geometry will not necessarily change this.
+
+OSM Tags
+21
+
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+
+Layer adminareas buildings buildings natural
+pofw pofw pois pois pois
+pois
+pois
+roads roads railways railways traffic
+traffic transport transport transport
+
+Attribute postcode height levels elevation
+opening_hours wheelchair opening_hours wheelchair cuisine
+memorial
+sport
+maxspeed surface electrification service ref
+opening_hours iata icao whchair
+
+PostGIS Type
+
+Description
+
+OSM Tags
+
+VARCHAR(8) postal code if recorded in OSM
+
+postal_code=*
+
+SMALLINT Height of the building.
+
+height=*
+
+SMALLINT Number of floors
+
+building:levels=*
+
+INTEGER
+
+Height of the feature above mean sea elevation=* level, in metres.
+
+VARCHAR(70) Opening hours
+
+opening_hours=*
+
+VARCHAR(1) Wheelchair accessibility
+
+wheelchair=*
+
+VARCHAR(70) Opening hours
+
+opening_hours=*
+
+VARCHAR(1) Wheelchair accessibility
+
+wheelchair=*
+
+VARCHAR(30)
+
+Cuisine of a restaurant, fast food etc. This field can contain any value, sometimes multiple values separated by semicolon. Most frequent values: pizza, coffee_shop, burger, regional, chinese, italien
+
+cuisine=*
+
+VARCHAR(25) Type of memorial. Most frequent memorial=* values are documented on the OpenStreetMap wiki at https://wiki.openstreetmap.org/wiki/ Key%3Amemorial
+
+VARCHAR(30) The type of sport exercised on a pitch sport=* or in a sports_centre.
+
+SMALLINT Max allowed speed in km/h
+
+maxspeed=*
+
+VARCHAR (20) The surface of the road
+
+surface=*
+
+VARCHAR (25) Electrification
+
+electrified=*
+
+VARCHAR (20) Type of minor track if it is any
+
+service=*
+
+VARCHAR (8) Reference number (motorway junctions)
+
+ref=*
+
+VARCHAR(70) Opening hours
+
+opening_hours=*
+
+VARCHAR(10) IATA code
+
+iata=*
+
+VARCHAR(10) ICAO code
+
+icao=*
+
+VARCHAR(1) Wheelchair accessibility
+
+wheelchair=*
+
+22
+
+OpenStreetMap Data in Layered GIS Format // Free Shapefiles and GeoPackages
+
+Version History and Copyright
+
+Version intial
+2 3
+4
+5
+6
+7 8 9
+10 11 12 13
+
+Created At 2016-08-12
+2016-12-07 2017-01-24
+2017-03-02
+2017-10-06
+2019-01-17
+2019-05-21 2020-01-13 2021-07-08
+2021-08-12 2022-03-31 2022-04-29 2026-04-02
+
+Changes
+Revamped free shape files now based on the commercially produced "0.7.0" shapes by Geofabrik.
+Updates in section 7 reflecting some changes made to the commercial shapes.
+Use amenity=taxi instead of amenity=taxi_rank. See taginfo.osm.org for details. Add waterway=dock.
+Swap codes 5205 and 5208 (ford and speed camera). They were swapped in the produced shape files. Add Buddhist, Taoist, Shintoist, Sikh and Hindu places of worship.
+Updates in chapter "Differences to Commercial "0.7" Shape Files". Split up feature class "farm" into "farmyard" and "farmland".
+Interprete OSM tags natural=water + water=river and natural=water + water=reservoir for feature classes "river" and "reservoir" in addition to waterway=riverbank and landuse=reservoir.
+Updates in chapter "Differences to Commercial "0.7" Shape Files".
+Updates in chapter "Differences to Commercial "0.7" Shape Files".
+Only add objects with amenity=place_of_worship to pofw layer. Add recycling:glass_bottles=yes to code 2031 (recycling_glass).
+Add code 2510 (general) for general stores to poi layer.
+Add code 5125 (busway).
+Add 2111 (clinic).
+Add code 5271 (bicycle_repair_station) to traffic layer. Fix code 5261 (parking_surface), add 5264 (parking_street). Split 8221 (wetland) into individual feature classes for different types of wetlands. Remove swimming pools, car parking and bicycle parking tagged with access=private or access=private. Rename feature class market_place to marketplace to match OSM tag value. Add OSM objects with shop=wine to feature class 2518 (beverages). Add code 7233 (landfill) to "landuse" layer. Add code 2017 (consulate) to POIs and restrict 2011 to just embassy. Add codes 2593 , 2594 (vending_drinks, vending_tickets) to POIs. Add new layer "protected_areas". Move code 7220 (national_park) from "landuse" layer as 7302 to that layer. Replace code 7210 (nature_reserve) on "landuse" layer by codes 7300 to 7308 on "protected_areas" layer. Add new layer "adminareas" (previously only available in paid files).
+
+Copyright in this document is held by Geofabrik GmbH. Some definitions have been extracted from the OpenStreetMap Wiki at http://wiki.openstreetmap.org/. Permission is granted to re-use this document whole or in part under the terms of the Creative Commons Attribution-Share Alike 2.0 license.
+
+23
+
+

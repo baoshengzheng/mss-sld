@@ -1,0 +1,500 @@
+# Geofabrik OSM Free Shapefiles Schema
+# Source: https://download.geofabrik.de/osm-data-in-gis-formats-free.pdf
+# Version: free shapes based on commercial 0.8 format (2026-04-02)
+#
+# Coordinate System: WGS84 (EPSG:4326), unprojected
+# Character Encoding: UTF-8
+#
+# Common fields across all layers:
+#   osm_id  - OSM ID (BIGINT / VARCHAR(12) in shapefile)
+#   code    - SMALLINT, 4-digit feature class code (first 1-2 digits = layer, last 2-3 = class)
+#   fclass  - VARCHAR(40), class name (human-readable)
+#   name    - VARCHAR(100), name from OSM name tag
+#
+# Layer naming convention:
+#   Point features mapped from OSM nodes → layer name without suffix
+#   Area features mapped from OSM ways/relations → layer name with _a suffix
+#   In shapefiles: osm_<layer>_free_1.shp (spillover _2, _3 etc if >2GB)
+
+layers:
+  # ============================================================
+  # POINT FEATURES
+  # ============================================================
+
+  - name: places
+    geometry: point
+    code_prefix: "10xx"
+    description: "Cities, towns, suburbs, villages, and other named places"
+    additional_fields:
+      - name: population
+        type: INTEGER
+        description: "Number of people living in this place (0 if unknown or for islands)"
+        osm_tags: "population=*"
+    fclass_values:
+      - { code: 1000, fclass: "city",             osm_tags: "place=city (but see 1005)", description: "National/state/provincial capital, often >100,000 people" }
+      - { code: 1001, fclass: "city",             osm_tags: "place=city", description: "City as defined by national government" }
+      - { code: 1002, fclass: "town",             osm_tags: "place=town", description: "Town, generally 10,000-100,000 people" }
+      - { code: 1003, fclass: "village",          osm_tags: "place=village", description: "Village, generally <10,000 people" }
+      - { code: 1004, fclass: "hamlet",           osm_tags: "place=hamlet", description: "Hamlet, just a few houses" }
+      - { code: 1005, fclass: "national_capital", osm_tags: "place=city + is_capital=country OR admin_level=2 OR capital=yes", description: "National capital" }
+      - { code: 1010, fclass: "suburb",           osm_tags: "place=suburb", description: "Named area of town or city" }
+      - { code: 1020, fclass: "island",           osm_tags: "place=island", description: "Island" }
+      - { code: 1030, fclass: "farm",             osm_tags: "place=farm", description: "Named farm" }
+      - { code: 1031, fclass: "dwelling",         osm_tags: "place=isolated_dwelling", description: "Isolated dwelling (1-2 houses)" }
+      - { code: 1040, fclass: "region",           osm_tags: "place=region", description: "Region label" }
+      - { code: 1041, fclass: "county",           osm_tags: "place=county", description: "County label" }
+      - { code: 1050, fclass: "locality",         osm_tags: "place=locality", description: "Other named place" }
+
+  - name: pois
+    geometry: point
+    code_prefix: "2xxx"
+    description: "Points of Interest — public facilities, health, leisure, catering, accommodation, shopping, money, tourism, misc"
+    additional_fields: []
+    fclass_values:
+      # 20xx public
+      - { code: 2001, fclass: "police",              group: "public",       osm_tags: "amenity=police" }
+      - { code: 2002, fclass: "fire_station",        group: "public",       osm_tags: "amenity=fire_station" }
+      - { code: 2004, fclass: "post_box",            group: "public",       osm_tags: "amenity=post_box" }
+      - { code: 2005, fclass: "post_office",         group: "public",       osm_tags: "amenity=post_office" }
+      - { code: 2006, fclass: "telephone",           group: "public",       osm_tags: "amenity=telephone" }
+      - { code: 2007, fclass: "library",             group: "public",       osm_tags: "amenity=library" }
+      - { code: 2008, fclass: "town_hall",           group: "public",       osm_tags: "amenity=townhall" }
+      - { code: 2009, fclass: "courthouse",          group: "public",       osm_tags: "amenity=courthouse" }
+      - { code: 2010, fclass: "prison",              group: "public",       osm_tags: "amenity=prison" }
+      - { code: 2011, fclass: "embassy",             group: "public",       osm_tags: "amenity=embassy OR office=diplomatic + diplomatic=embassy" }
+      - { code: 2012, fclass: "community_centre",    group: "public",       osm_tags: "amenity=community_centre" }
+      - { code: 2013, fclass: "nursing_home",        group: "public",       osm_tags: "amenity=nursing_home" }
+      - { code: 2014, fclass: "arts_centre",         group: "public",       osm_tags: "amenity=arts_centre" }
+      - { code: 2015, fclass: "graveyard",           group: "public",       osm_tags: "amenity=grave_yard OR landuse=cemetery" }
+      - { code: 2016, fclass: "market_place",        group: "public",       osm_tags: "amenity=marketplace" }
+      - { code: 2017, fclass: "consulate",           group: "public",       osm_tags: "office=diplomatic + diplomatic=consulate" }
+      # 203x recycling
+      - { code: 2030, fclass: "recycling",           group: "public",       osm_tags: "amenity=recycling (general)" }
+      - { code: 2031, fclass: "recycling_glass",     group: "public",       osm_tags: "recycling:glass=yes OR recycling:glass_bottles=yes" }
+      - { code: 2032, fclass: "recycling_paper",     group: "public",       osm_tags: "recycling:paper=yes" }
+      - { code: 2033, fclass: "recycling_clothes",   group: "public",       osm_tags: "recycling:clothes=yes" }
+      - { code: 2034, fclass: "recycling_metal",     group: "public",       osm_tags: "recycling:scrap_metal=yes" }
+      # 208x education
+      - { code: 2081, fclass: "university",          group: "education",    osm_tags: "amenity=university" }
+      - { code: 2082, fclass: "school",              group: "education",    osm_tags: "amenity=school" }
+      - { code: 2083, fclass: "kindergarten",        group: "education",    osm_tags: "amenity=kindergarten" }
+      - { code: 2084, fclass: "college",             group: "education",    osm_tags: "amenity=college" }
+      - { code: 2099, fclass: "public_building",     group: "education",    osm_tags: "amenity=public_building" }
+      # 21xx health
+      - { code: 2101, fclass: "pharmacy",            group: "health",       osm_tags: "amenity=pharmacy" }
+      - { code: 2110, fclass: "hospital",            group: "health",       osm_tags: "amenity=hospital" }
+      - { code: 2111, fclass: "clinic",              group: "health",       osm_tags: "amenity=clinic" }
+      - { code: 2120, fclass: "doctors",             group: "health",       osm_tags: "amenity=doctors" }
+      - { code: 2121, fclass: "dentist",             group: "health",       osm_tags: "amenity=dentist" }
+      - { code: 2129, fclass: "veterinary",          group: "health",       osm_tags: "amenity=veterinary" }
+      # 22xx leisure
+      - { code: 2201, fclass: "theatre",             group: "leisure",      osm_tags: "amenity=theatre" }
+      - { code: 2202, fclass: "nightclub",           group: "leisure",      osm_tags: "amenity=nightclub" }
+      - { code: 2203, fclass: "cinema",              group: "leisure",      osm_tags: "amenity=cinema" }
+      - { code: 2204, fclass: "park",                group: "leisure",      osm_tags: "leisure=park" }
+      - { code: 2205, fclass: "playground",          group: "leisure",      osm_tags: "leisure=playground" }
+      - { code: 2206, fclass: "dog_park",            group: "leisure",      osm_tags: "leisure=dog_park" }
+      - { code: 2251, fclass: "sports_centre",       group: "sports",       osm_tags: "leisure=sports_centre" }
+      - { code: 2252, fclass: "pitch",               group: "sports",       osm_tags: "leisure=pitch" }
+      - { code: 2253, fclass: "swimming_pool",       group: "sports",       osm_tags: "amenity=swimming_pool OR leisure=swimming_pool OR sport=swimming OR leisure=water_park" }
+      - { code: 2254, fclass: "tennis_court",        group: "sports",       osm_tags: "sport=tennis" }
+      - { code: 2255, fclass: "golf_course",         group: "sports",       osm_tags: "leisure=golf_course" }
+      - { code: 2256, fclass: "stadium",             group: "sports",       osm_tags: "leisure=stadium" }
+      - { code: 2257, fclass: "ice_rink",            group: "sports",       osm_tags: "leisure=ice_rink" }
+      # 23xx catering
+      - { code: 2301, fclass: "restaurant",          group: "catering",     osm_tags: "amenity=restaurant" }
+      - { code: 2302, fclass: "fast_food",           group: "catering",     osm_tags: "amenity=fast_food" }
+      - { code: 2303, fclass: "cafe",                group: "catering",     osm_tags: "amenity=cafe" }
+      - { code: 2304, fclass: "pub",                 group: "catering",     osm_tags: "amenity=pub" }
+      - { code: 2305, fclass: "bar",                 group: "catering",     osm_tags: "amenity=bar" }
+      - { code: 2306, fclass: "food_court",          group: "catering",     osm_tags: "amenity=food_court" }
+      - { code: 2307, fclass: "biergarten",          group: "catering",     osm_tags: "amenity=biergarten" }
+      # 24xx accommodation
+      - { code: 2401, fclass: "hotel",               group: "accommodation", osm_tags: "tourism=hotel" }
+      - { code: 2402, fclass: "motel",               group: "accommodation", osm_tags: "tourism=motel" }
+      - { code: 2403, fclass: "bed_and_breakfast",   group: "accommodation", osm_tags: "tourism=bed_and_breakfast" }
+      - { code: 2404, fclass: "guesthouse",          group: "accommodation", osm_tags: "tourism=guest_house" }
+      - { code: 2405, fclass: "hostel",              group: "accommodation", osm_tags: "tourism=hostel" }
+      - { code: 2406, fclass: "chalet",              group: "accommodation", osm_tags: "tourism=chalet" }
+      - { code: 2421, fclass: "shelter",             group: "accommodation", osm_tags: "amenity=shelter" }
+      - { code: 2422, fclass: "camp_site",           group: "accommodation", osm_tags: "tourism=camp_site" }
+      - { code: 2423, fclass: "alpine_hut",          group: "accommodation", osm_tags: "tourism=alpine_hut" }
+      - { code: 2424, fclass: "caravan_site",        group: "accommodation", osm_tags: "tourism=caravan_site" }
+      # 25xx shopping
+      - { code: 2501, fclass: "supermarket",         group: "shopping",     osm_tags: "shop=supermarket" }
+      - { code: 2502, fclass: "bakery",              group: "shopping",     osm_tags: "shop=bakery" }
+      - { code: 2503, fclass: "kiosk",               group: "shopping",     osm_tags: "shop=kiosk" }
+      - { code: 2504, fclass: "mall",                group: "shopping",     osm_tags: "shop=mall" }
+      - { code: 2505, fclass: "department_store",    group: "shopping",     osm_tags: "shop=department_store" }
+      - { code: 2510, fclass: "general",             group: "shopping",     osm_tags: "shop=general" }
+      - { code: 2511, fclass: "convenience",         group: "shopping",     osm_tags: "shop=convenience" }
+      - { code: 2512, fclass: "clothes",             group: "shopping",     osm_tags: "shop=clothes" }
+      - { code: 2513, fclass: "florist",             group: "shopping",     osm_tags: "shop=florist" }
+      - { code: 2514, fclass: "chemist",             group: "shopping",     osm_tags: "shop=chemist" }
+      - { code: 2515, fclass: "bookshop",            group: "shopping",     osm_tags: "shop=books" }
+      - { code: 2516, fclass: "butcher",             group: "shopping",     osm_tags: "shop=butcher" }
+      - { code: 2517, fclass: "shoe_shop",           group: "shopping",     osm_tags: "shop=shoes" }
+      - { code: 2518, fclass: "beverages",           group: "shopping",     osm_tags: "shop=alcohol OR shop=beverages OR shop=wine" }
+      - { code: 2519, fclass: "optician",            group: "shopping",     osm_tags: "shop=optician" }
+      - { code: 2520, fclass: "jeweller",            group: "shopping",     osm_tags: "shop=jewelry" }
+      - { code: 2521, fclass: "gift_shop",           group: "shopping",     osm_tags: "shop=gift" }
+      - { code: 2522, fclass: "sports_shop",         group: "shopping",     osm_tags: "shop=sports" }
+      - { code: 2523, fclass: "stationery",          group: "shopping",     osm_tags: "shop=stationery" }
+      - { code: 2524, fclass: "outdoor_shop",        group: "shopping",     osm_tags: "shop=outdoor" }
+      - { code: 2525, fclass: "mobile_phone_shop",   group: "shopping",     osm_tags: "shop=mobile_phone" }
+      - { code: 2526, fclass: "toy_shop",            group: "shopping",     osm_tags: "shop=toys" }
+      - { code: 2527, fclass: "newsagent",           group: "shopping",     osm_tags: "shop=newsagent" }
+      - { code: 2528, fclass: "greengrocer",         group: "shopping",     osm_tags: "shop=greengrocer" }
+      - { code: 2529, fclass: "beauty_shop",         group: "shopping",     osm_tags: "shop=beauty" }
+      - { code: 2530, fclass: "video_shop",          group: "shopping",     osm_tags: "shop=video" }
+      - { code: 2541, fclass: "car_dealership",      group: "shopping",     osm_tags: "shop=car" }
+      - { code: 2542, fclass: "bicycle_shop",        group: "shopping",     osm_tags: "shop=bicycle" }
+      - { code: 2543, fclass: "doityourself",        group: "shopping",     osm_tags: "shop=doityourself OR shop=hardware" }
+      - { code: 2544, fclass: "furniture_shop",      group: "shopping",     osm_tags: "shop=furniture" }
+      - { code: 2546, fclass: "computer_shop",       group: "shopping",     osm_tags: "shop=computer" }
+      - { code: 2547, fclass: "garden_centre",       group: "shopping",     osm_tags: "shop=garden_centre" }
+      # 256x services
+      - { code: 2561, fclass: "hairdresser",         group: "services",     osm_tags: "shop=hairdresser" }
+      - { code: 2562, fclass: "car_repair",          group: "services",     osm_tags: "shop=car_repair" }
+      - { code: 2563, fclass: "car_rental",          group: "services",     osm_tags: "amenity=car_rental" }
+      - { code: 2564, fclass: "car_wash",            group: "services",     osm_tags: "amenity=car_wash" }
+      - { code: 2565, fclass: "car_sharing",         group: "services",     osm_tags: "amenity=car_sharing" }
+      - { code: 2566, fclass: "bicycle_rental",      group: "services",     osm_tags: "amenity=bicycle_rental" }
+      - { code: 2567, fclass: "travel_agent",        group: "services",     osm_tags: "shop=travel_agency" }
+      - { code: 2568, fclass: "laundry",             group: "services",     osm_tags: "shop=laundry OR shop=dry_cleaning" }
+      # 259x vending
+      - { code: 2590, fclass: "vending_machine",     group: "vending",      osm_tags: "amenity=vending_machine (general)" }
+      - { code: 2591, fclass: "vending_cigarette",   group: "vending",      osm_tags: "vending=cigarettes" }
+      - { code: 2592, fclass: "vending_parking",     group: "vending",      osm_tags: "vending=parking_tickets" }
+      - { code: 2593, fclass: "vending_drinks",      group: "vending",      osm_tags: "vending=drinks" }
+      - { code: 2594, fclass: "vending_tickets",     group: "vending",      osm_tags: "vending=public_transport_tickets" }
+      # 26xx money
+      - { code: 2601, fclass: "bank",                group: "money",        osm_tags: "amenity=bank" }
+      - { code: 2602, fclass: "atm",                 group: "money",        osm_tags: "amenity=atm" }
+      # 27xx tourism
+      - { code: 2701, fclass: "tourist_info",        group: "tourism",      osm_tags: "tourism=information (general)" }
+      - { code: 2704, fclass: "tourist_map",         group: "tourism",      osm_tags: "information=map" }
+      - { code: 2705, fclass: "tourist_board",       group: "tourism",      osm_tags: "information=board" }
+      - { code: 2706, fclass: "tourist_guidepost",   group: "tourism",      osm_tags: "information=guidepost" }
+      - { code: 2721, fclass: "attraction",          group: "tourism",      osm_tags: "tourism=attraction" }
+      - { code: 2722, fclass: "museum",              group: "tourism",      osm_tags: "tourism=museum" }
+      - { code: 2723, fclass: "monument",            group: "tourism",      osm_tags: "historic=monument" }
+      - { code: 2724, fclass: "memorial",            group: "tourism",      osm_tags: "historic=memorial" }
+      - { code: 2725, fclass: "art",                 group: "tourism",      osm_tags: "tourism=artwork" }
+      - { code: 2731, fclass: "castle",              group: "tourism",      osm_tags: "historic=castle" }
+      - { code: 2732, fclass: "ruins",               group: "tourism",      osm_tags: "historic=ruins" }
+      - { code: 2733, fclass: "archaeological",      group: "tourism",      osm_tags: "historic=archaeological_site" }
+      - { code: 2734, fclass: "wayside_cross",       group: "tourism",      osm_tags: "historic=wayside_cross" }
+      - { code: 2735, fclass: "wayside_shrine",      group: "tourism",      osm_tags: "historic=wayside_shrine" }
+      - { code: 2736, fclass: "battlefield",         group: "tourism",      osm_tags: "historic=battlefield" }
+      - { code: 2737, fclass: "fort",                group: "tourism",      osm_tags: "historic=fort" }
+      - { code: 2741, fclass: "picnic_site",         group: "tourism",      osm_tags: "tourism=picnic_site" }
+      - { code: 2742, fclass: "viewpoint",           group: "tourism",      osm_tags: "tourism=viewpoint" }
+      - { code: 2743, fclass: "zoo",                 group: "tourism",      osm_tags: "tourism=zoo" }
+      - { code: 2744, fclass: "theme_park",          group: "tourism",      osm_tags: "tourism=theme_park" }
+      # 29xx miscpoi
+      - { code: 2901, fclass: "toilet",              group: "miscpoi",      osm_tags: "amenity=toilets" }
+      - { code: 2902, fclass: "bench",               group: "miscpoi",      osm_tags: "amenity=bench" }
+      - { code: 2903, fclass: "drinking_water",      group: "miscpoi",      osm_tags: "amenity=drinking_water" }
+      - { code: 2904, fclass: "fountain",            group: "miscpoi",      osm_tags: "amenity=fountain" }
+      - { code: 2905, fclass: "hunting_stand",       group: "miscpoi",      osm_tags: "amenity=hunting_stand" }
+      - { code: 2906, fclass: "waste_basket",        group: "miscpoi",      osm_tags: "amenity=waste_basket" }
+      - { code: 2907, fclass: "camera_surveillance", group: "miscpoi",      osm_tags: "man_made=surveillance" }
+      - { code: 2921, fclass: "emergency_phone",     group: "miscpoi",      osm_tags: "amenity=emergency_phone OR emergency=phone" }
+      - { code: 2922, fclass: "fire_hydrant",        group: "miscpoi",      osm_tags: "amenity=fire_hydrant OR emergency=fire_hydrant" }
+      - { code: 2923, fclass: "emergency_access",    group: "miscpoi",      osm_tags: "highway=emergency_access_point" }
+      # 295x towers/man_made
+      - { code: 2950, fclass: "tower",               group: "towers",       osm_tags: "man_made=tower (general)" }
+      - { code: 2951, fclass: "tower_comms",         group: "towers",       osm_tags: "man_made=tower + tower:type=communication" }
+      - { code: 2952, fclass: "water_tower",         group: "towers",       osm_tags: "man_made=water_tower" }
+      - { code: 2953, fclass: "tower_observation",   group: "towers",       osm_tags: "man_made=tower + tower:type=observation" }
+      - { code: 2954, fclass: "windmill",            group: "towers",       osm_tags: "man_made=windmill" }
+      - { code: 2955, fclass: "lighthouse",          group: "towers",       osm_tags: "man_made=lighthouse" }
+      - { code: 2961, fclass: "wastewater_plant",    group: "towers",       osm_tags: "man_made=wastewater_plant" }
+      - { code: 2962, fclass: "water_well",          group: "towers",       osm_tags: "man_made=water_well" }
+      - { code: 2963, fclass: "water_mill",          group: "towers",       osm_tags: "man_made=watermill" }
+      - { code: 2964, fclass: "water_works",         group: "towers",       osm_tags: "man_made=water_works" }
+
+  - name: pofw
+    geometry: point
+    code_prefix: "3xxx"
+    description: "Places of Worship — churches, mosques, synagogues, temples, etc."
+    additional_fields: []
+    fclass_values:
+      - { code: 3000, fclass: "place_of_worship", osm_tags: "amenity=place_of_worship (general)" }
+      - { code: 3100, fclass: "christian",         osm_tags: "amenity=place_of_worship + religion=christian (no specific denomination)" }
+      - { code: 3101, fclass: "christian_anglican", osm_tags: "amenity=place_of_worship + religion=christian + denomination=anglican" }
+      - { code: 3102, fclass: "christian_catholic", osm_tags: "amenity=place_of_worship + religion=christian + denomination=catholic" }
+      - { code: 3103, fclass: "christian_evangelical", osm_tags: "amenity=place_of_worship + religion=christian + denomination=evangelical" }
+      - { code: 3104, fclass: "christian_lutheran", osm_tags: "amenity=place_of_worship + religion=christian + denomination=lutheran" }
+      - { code: 3105, fclass: "christian_methodist", osm_tags: "amenity=place_of_worship + religion=christian + denomination=methodist" }
+      - { code: 3106, fclass: "christian_orthodox", osm_tags: "amenity=place_of_worship + religion=christian + denomination=orthodox" }
+      - { code: 3107, fclass: "christian_protestant", osm_tags: "amenity=place_of_worship + religion=christian + denomination=protestant" }
+      - { code: 3108, fclass: "christian_baptist",  osm_tags: "amenity=place_of_worship + religion=christian + denomination=baptist" }
+      - { code: 3109, fclass: "christian_mormon",   osm_tags: "amenity=place_of_worship + religion=christian + denomination=mormon" }
+      - { code: 3200, fclass: "jewish",             osm_tags: "amenity=place_of_worship + religion=jewish" }
+      - { code: 3300, fclass: "muslim",             osm_tags: "amenity=place_of_worship + religion=muslim (no specific denomination)" }
+      - { code: 3301, fclass: "muslim_sunni",       osm_tags: "amenity=place_of_worship + religion=muslim + denomination=sunni" }
+      - { code: 3302, fclass: "muslim_shia",        osm_tags: "amenity=place_of_worship + religion=muslim + denomination=shia" }
+      - { code: 3400, fclass: "buddhist",           osm_tags: "amenity=place_of_worship + religion=buddhist" }
+      - { code: 3500, fclass: "hindu",              osm_tags: "amenity=place_of_worship + religion=hindu" }
+      - { code: 3600, fclass: "taoist",             osm_tags: "amenity=place_of_worship + religion=taoist" }
+      - { code: 3700, fclass: "shintoist",          osm_tags: "amenity=place_of_worship + religion=shintoist" }
+      - { code: 3800, fclass: "sikh",               osm_tags: "amenity=place_of_worship + religion=sikh" }
+
+  - name: natural
+    geometry: point
+    code_prefix: "41xx"
+    description: "Natural features as point geometries"
+    additional_fields: []
+    fclass_values:
+      - { code: 4101, fclass: "spring",        osm_tags: "natural=spring" }
+      - { code: 4103, fclass: "glacier",       osm_tags: "natural=glacier" }
+      - { code: 4111, fclass: "peak",          osm_tags: "natural=peak" }
+      - { code: 4112, fclass: "cliff",         osm_tags: "natural=cliff" }
+      - { code: 4113, fclass: "volcano",       osm_tags: "natural=volcano" }
+      - { code: 4121, fclass: "tree",          osm_tags: "natural=tree" }
+      - { code: 4131, fclass: "mine",          osm_tags: "natural=mine" }
+      - { code: 4132, fclass: "cave_entrance", osm_tags: "natural=cave_entrance" }
+      - { code: 4141, fclass: "beach",         osm_tags: "natural=beach" }
+
+  - name: traffic
+    geometry: point  # also exists as area (_a suffix)
+    code_prefix: "52xx"
+    description: "Traffic-related features — signals, parking, fuel, water traffic"
+    additional_fields: []
+    fclass_values:
+      - { code: 5201, fclass: "traffic_signals",    group: "traffic",   osm_tags: "highway=traffic_signals" }
+      - { code: 5202, fclass: "mini_roundabout",    group: "traffic",   osm_tags: "highway=mini_roundabout" }
+      - { code: 5203, fclass: "stop",               group: "traffic",   osm_tags: "highway=stop" }
+      - { code: 5204, fclass: "crossing",           group: "traffic",   osm_tags: "highway=crossing OR railway=level_crossing" }
+      - { code: 5205, fclass: "ford",               group: "traffic",   osm_tags: "highway=ford" }
+      - { code: 5206, fclass: "motorway_junction",  group: "traffic",   osm_tags: "highway=motorway_junction" }
+      - { code: 5207, fclass: "turning_circle",     group: "traffic",   osm_tags: "highway=turning_circle" }
+      - { code: 5208, fclass: "speed_camera",       group: "traffic",   osm_tags: "highway=speed_camera" }
+      - { code: 5209, fclass: "street_lamp",        group: "traffic",   osm_tags: "highway=street_lamp" }
+      - { code: 5250, fclass: "fuel",               group: "fuel",      osm_tags: "amenity=fuel" }
+      - { code: 5251, fclass: "service",            group: "fuel",      osm_tags: "highway=services" }
+      - { code: 5260, fclass: "parking",            group: "parking",   osm_tags: "amenity=parking (general, public)" }
+      - { code: 5261, fclass: "parking_surface",    group: "parking",   osm_tags: "amenity=parking + parking=surface (public)" }
+      - { code: 5262, fclass: "parking_multistorey", group: "parking",  osm_tags: "amenity=parking + parking=multi-storey (public)" }
+      - { code: 5263, fclass: "parking_underground", group: "parking",  osm_tags: "amenity=parking + parking=underground (public)" }
+      - { code: 5264, fclass: "parking_street",     group: "parking",   osm_tags: "amenity=parking + parking=street_side/lane (public)" }
+      - { code: 5270, fclass: "parking_bicycle",    group: "parking",   osm_tags: "amenity=bicycle_parking (public)" }
+      - { code: 5271, fclass: "bicycle_repair_station", group: "parking", osm_tags: "amenity=bicycle_repair_station" }
+      # water traffic
+      - { code: 5301, fclass: "slipway",            group: "water",     osm_tags: "leisure=slipway" }
+      - { code: 5302, fclass: "marina",             group: "water",     osm_tags: "leisure=marina" }
+      - { code: 5303, fclass: "pier",               group: "water",     osm_tags: "man_made=pier" }
+      - { code: 5311, fclass: "dam",                group: "water",     osm_tags: "waterway=dam" }
+      - { code: 5321, fclass: "waterfall",          group: "water",     osm_tags: "waterway=waterfall" }
+      - { code: 5331, fclass: "lock_gate",          group: "water",     osm_tags: "waterway=lock_gate" }
+      - { code: 5332, fclass: "weir",               group: "water",     osm_tags: "waterway=weir" }
+
+  - name: transport
+    geometry: point  # also exists as area (_a suffix)
+    code_prefix: "56xx"
+    description: "Transport infrastructure — stations, stops, airports, ferry terminals"
+    additional_fields: []
+    fclass_values:
+      - { code: 5601, fclass: "railway_station",    osm_tags: "railway=station" }
+      - { code: 5602, fclass: "railway_halt",       osm_tags: "railway=halt OR public_transport=stop_position + train=yes" }
+      - { code: 5603, fclass: "tram_stop",          osm_tags: "railway=tram_stop OR public_transport=stop_position + tram=yes" }
+      - { code: 5621, fclass: "bus_stop",           osm_tags: "highway=bus_stop OR public_transport=stop_position + bus=yes" }
+      - { code: 5622, fclass: "bus_station",        osm_tags: "amenity=bus_station" }
+      - { code: 5641, fclass: "taxi_rank",          osm_tags: "amenity=taxi" }
+      - { code: 5651, fclass: "airport",            osm_tags: "amenity=airport OR aeroway=aerodrome (except type=airstrip)" }
+      - { code: 5652, fclass: "airfield",           osm_tags: "aeroway=airfield OR military=airfield OR aeroway=aeroway + type=airstrip" }
+      - { code: 5655, fclass: "helipad",            osm_tags: "aeroway=helipad" }
+      - { code: 5656, fclass: "apron",              osm_tags: "aeroway=apron" }
+      - { code: 5661, fclass: "ferry_terminal",     osm_tags: "amenity=ferry_terminal" }
+      - { code: 5671, fclass: "aerialway_station",  osm_tags: "aerialway=station" }
+
+  # ============================================================
+  # LINE FEATURES
+  # ============================================================
+
+  - name: roads
+    geometry: linestring
+    code_prefix: "51xx"
+    description: "All kinds of roads from motorways to tracks, cycleways, and footpaths"
+    additional_fields:
+      - { name: "ref",     type: "VARCHAR(20)",  osm_tags: "ref=*",              description: "Reference number (e.g. 'A 5', 'L 605')" }
+      - { name: "oneway",  type: "VARCHAR(1)",   osm_tags: "oneway=*",           description: "'F'=forward, 'T'=backward, 'B'=both" }
+      - { name: "maxspeed", type: "SMALLINT",     osm_tags: "maxspeed=*",         description: "Max allowed speed in km/h" }
+      - { name: "layer",   type: "SMALLINT",      osm_tags: "layer=*",            description: "Relative layering (-5 to 5)" }
+      - { name: "bridge",  type: "VARCHAR(1)",   osm_tags: "bridge=*",           description: "'T' = on bridge, 'F' = not" }
+      - { name: "tunnel",  type: "VARCHAR(1)",   osm_tags: "tunnel=*",           description: "'T' = in tunnel, 'F' = not" }
+    fclass_values:
+      # 511x Major roads
+      - { code: 5111, fclass: "motorway",    osm_tags: "highway=motorway" }
+      - { code: 5112, fclass: "trunk",       osm_tags: "highway=trunk" }
+      - { code: 5113, fclass: "primary",     osm_tags: "highway=primary" }
+      - { code: 5114, fclass: "secondary",   osm_tags: "highway=secondary" }
+      - { code: 5115, fclass: "tertiary",    osm_tags: "highway=tertiary" }
+      # 512x Minor roads
+      - { code: 5121, fclass: "unclassified", osm_tags: "highway=unclassified" }
+      - { code: 5122, fclass: "residential",  osm_tags: "highway=residential" }
+      - { code: 5123, fclass: "living_street", osm_tags: "highway=living_street" }
+      - { code: 5124, fclass: "pedestrian",   osm_tags: "highway=pedestrian" }
+      - { code: 5125, fclass: "busway",       osm_tags: "highway=busway" }
+      # 513x Links
+      - { code: 5131, fclass: "motorway_link", osm_tags: "highway=motorway_link" }
+      - { code: 5132, fclass: "trunk_link",    osm_tags: "highway=trunk_link" }
+      - { code: 5133, fclass: "primary_link",  osm_tags: "highway=primary_link" }
+      - { code: 5134, fclass: "secondary_link", osm_tags: "highway=secondary_link" }
+      - { code: 5135, fclass: "tertiary_link",  osm_tags: "highway=tertiary_link" }
+      # 514x Very small roads
+      - { code: 5141, fclass: "service",       osm_tags: "highway=service" }
+      - { code: 5142, fclass: "track",          osm_tags: "highway=track (no tracktype)" }
+      - { code: 5143, fclass: "track_grade1",   osm_tags: "highway=track + tracktype=grade1" }
+      - { code: 5144, fclass: "track_grade2",   osm_tags: "highway=track + tracktype=grade2" }
+      - { code: 5145, fclass: "track_grade3",   osm_tags: "highway=track + tracktype=grade3" }
+      - { code: 5146, fclass: "track_grade4",   osm_tags: "highway=track + tracktype=grade4" }
+      - { code: 5147, fclass: "track_grade5",   osm_tags: "highway=track + tracktype=grade5" }
+      # 515x Paths
+      - { code: 5151, fclass: "bridleway",      osm_tags: "highway=bridleway OR highway=path + horse=designated" }
+      - { code: 5152, fclass: "cycleway",       osm_tags: "highway=cycleway OR highway=path + cycle=designated" }
+      - { code: 5153, fclass: "footway",        osm_tags: "highway=footway OR highway=path + foot=designated" }
+      - { code: 5154, fclass: "path",           osm_tags: "highway=path (general)" }
+      - { code: 5155, fclass: "steps",          osm_tags: "highway=steps" }
+      - { code: 5199, fclass: "unknown",        osm_tags: "highway=road" }
+
+  - name: railways
+    geometry: linestring
+    code_prefix: "61xx"
+    description: "Railways, subways, trams, lifts, and cable cars"
+    additional_fields:
+      - { name: "layer",  type: "SMALLINT",   osm_tags: "layer=*",  description: "Relative layering (-5 to 5)" }
+      - { name: "bridge", type: "VARCHAR(1)", osm_tags: "bridge=*", description: "'T' = on bridge" }
+      - { name: "tunnel", type: "VARCHAR(1)", osm_tags: "tunnel=*", description: "'T' = in tunnel" }
+    fclass_values:
+      - { code: 6101, fclass: "rail",        osm_tags: "railway=rail (unless traction=* set)" }
+      - { code: 6102, fclass: "light_rail",  osm_tags: "railway=light_rail" }
+      - { code: 6103, fclass: "subway",      osm_tags: "railway=subway" }
+      - { code: 6104, fclass: "tram",        osm_tags: "railway=tram" }
+      - { code: 6105, fclass: "monorail",    osm_tags: "railway=monorail" }
+      - { code: 6106, fclass: "narrow_gauge", osm_tags: "railway=narrow_gauge" }
+      - { code: 6107, fclass: "miniature",   osm_tags: "railway=miniature" }
+      - { code: 6108, fclass: "funicular",   osm_tags: "railway=funicular OR railway=rail + traction=funicular" }
+      - { code: 6109, fclass: "rack",        osm_tags: "railway=rack OR railway=rail + traction=rack OR railway=rail + rack=yes" }
+      - { code: 6111, fclass: "drag_lift",   osm_tags: "aerialway=drag_lift" }
+      - { code: 6112, fclass: "chair_lift",  osm_tags: "aerialway=chair_lift OR aerialway=high_speed_chair_lift" }
+      - { code: 6113, fclass: "cable_car",   osm_tags: "aerialway=cable_car" }
+      - { code: 6114, fclass: "gondola",     osm_tags: "aerialway=gondola" }
+      - { code: 6115, fclass: "goods",       osm_tags: "aerialway=goods" }
+      - { code: 6119, fclass: "other_lift",  osm_tags: "aerialway=platter/t-bar/j-bar/magic_carpet/zip_line/rope_tow/mixed_lift" }
+
+  - name: waterways
+    geometry: linestring
+    code_prefix: "81xx"
+    description: "Rivers, canals, streams, and drains"
+    additional_fields:
+      - { name: "width", type: "SMALLINT", osm_tags: "width=*", description: "Width in metres" }
+    fclass_values:
+      - { code: 8101, fclass: "river",  osm_tags: "waterway=river",  description: "Large river" }
+      - { code: 8102, fclass: "stream", osm_tags: "waterway=stream", description: "Smaller river or stream" }
+      - { code: 8103, fclass: "canal",  osm_tags: "waterway=canal",  description: "Artificial waterway" }
+      - { code: 8104, fclass: "drain",  osm_tags: "waterway=drain",  description: "Small drainage ditch" }
+
+  # ============================================================
+  # POLYGON FEATURES
+  # ============================================================
+
+  - name: adminareas
+    geometry: polygon
+    code_prefix: "12xx"
+    description: "Administrative boundaries (built from boundary lines)"
+    additional_fields: []
+    fclass_values:
+      - { code: 1200, fclass: "admin_area",     osm_tags: "boundary=administrative (general)" }
+      - { code: 1201, fclass: "admin_level1",   osm_tags: "boundary=administrative + admin_level=1" }
+      - { code: 1202, fclass: "national",       osm_tags: "boundary=administrative + admin_level=2 (national border)" }
+      - { code: 1203, fclass: "admin_level3",   osm_tags: "boundary=administrative + admin_level=3" }
+      - { code: 1204, fclass: "admin_level4",   osm_tags: "boundary=administrative + admin_level=4 (NUTS-2: state/region)" }
+      - { code: 1205, fclass: "admin_level5",   osm_tags: "boundary=administrative + admin_level=5" }
+      - { code: 1206, fclass: "admin_level6",   osm_tags: "boundary=administrative + admin_level=6 (NUTS-3: county)" }
+      - { code: 1207, fclass: "admin_level7",   osm_tags: "boundary=administrative + admin_level=7" }
+      - { code: 1208, fclass: "admin_level8",   osm_tags: "boundary=administrative + admin_level=8 (city/borough)" }
+      - { code: 1209, fclass: "admin_level9",   osm_tags: "boundary=administrative + admin_level=9" }
+      - { code: 1210, fclass: "admin_level10",  osm_tags: "boundary=administrative + admin_level=10" }
+      - { code: 1211, fclass: "admin_level11",  osm_tags: "boundary=administrative + admin_level=11" }
+
+  - name: buildings
+    geometry: polygon
+    code_prefix: "15xx"
+    description: "Building outlines"
+    additional_fields:
+      - { name: "type", type: "VARCHAR(20)", osm_tags: "building=*", description: "Building type (empty if building=yes)" }
+    fclass_values:
+      - { code: 1500, fclass: "buildings", osm_tags: "building=*", description: "Building outlines" }
+
+  - name: landuse
+    geometry: polygon
+    code_prefix: "72xx"
+    description: "Land use and land cover — forests, residential, industrial, farmland, parks, etc."
+    additional_fields: []
+    fclass_values:
+      - { code: 7201, fclass: "forest",            osm_tags: "landuse=forest OR natural=wood" }
+      - { code: 7202, fclass: "park",              osm_tags: "leisure=park OR leisure=common" }
+      - { code: 7203, fclass: "residential",       osm_tags: "landuse=residential" }
+      - { code: 7204, fclass: "industrial",        osm_tags: "landuse=industrial" }
+      - { code: 7206, fclass: "cemetery",          osm_tags: "landuse=cemetery" }
+      - { code: 7207, fclass: "allotments",        osm_tags: "landuse=allotments" }
+      - { code: 7208, fclass: "meadow",            osm_tags: "landuse=meadow" }
+      - { code: 7209, fclass: "commercial",        osm_tags: "landuse=commercial" }
+      - { code: 7211, fclass: "recreation_ground", osm_tags: "leisure=recreation_ground OR landuse=recreation_ground" }
+      - { code: 7212, fclass: "retail",            osm_tags: "landuse=retail" }
+      - { code: 7213, fclass: "military",          osm_tags: "landuse=military" }
+      - { code: 7214, fclass: "quarry",            osm_tags: "landuse=quarry" }
+      - { code: 7215, fclass: "orchard",           osm_tags: "landuse=orchard" }
+      - { code: 7216, fclass: "vineyard",          osm_tags: "landuse=vineyard" }
+      - { code: 7217, fclass: "scrub",             osm_tags: "landuse=scrub" }  # Note: natural=scrub is possible too
+      - { code: 7218, fclass: "grass",             osm_tags: "landuse=grass" }
+      - { code: 7219, fclass: "heath",             osm_tags: "natural=heath" }
+      - { code: 7228, fclass: "farmland",          osm_tags: "landuse=farmland" }
+      - { code: 7229, fclass: "farmyard",          osm_tags: "landuse=farmyard" }
+      - { code: 7233, fclass: "landfill",          osm_tags: "landuse=landfill" }
+
+  - name: protected_areas
+    geometry: polygon
+    code_prefix: "73xx"
+    description: "Nature reserves, national parks, and IUCN protected areas"
+    additional_fields:
+      - { name: "icun",  type: "VARCHAR(10)",  osm_tags: "protect_class=*",         description: "IUCN category (may contain multiple values)" }
+      - { name: "title", type: "VARCHAR(100)", osm_tags: "protection_title=*",       description: "Official national predicate or grade" }
+    fclass_values:
+      - { code: 7300, fclass: "other_nature_reserve", osm_tags: "leisure=nature_reserve (fallback, no IUCN assigned)", description: "Nature reserve without detailed protection specification" }
+      - { code: 7301, fclass: "icun_1",               osm_tags: "boundary=protected_area + protect_class=1/1a/1b", description: "Strict Nature Reserve (IUCN 1a) or Wilderness Area (IUCN 1b)" }
+      - { code: 7302, fclass: "national_park",        osm_tags: "boundary=national_park OR boundary=protected_area + protect_class=2", description: "National Park (IUCN 2)" }
+      - { code: 7303, fclass: "icun_3",               osm_tags: "boundary=protected_area + protect_class=3", description: "Natural Monument or Feature (IUCN 3)" }
+      - { code: 7304, fclass: "icun_4",               osm_tags: "boundary=protected_area + protect_class=4", description: "Habitat/Species Management Area (IUCN 4)" }
+      - { code: 7305, fclass: "icun_5",               osm_tags: "boundary=protected_area + protect_class=5", description: "Protected Landscape/Seascape (IUCN 5)" }
+      - { code: 7306, fclass: "icun_6",               osm_tags: "boundary=protected_area + protect_class=6", description: "Sustainable use of natural resources (IUCN 6)" }
+      - { code: 7307, fclass: "icun_7",               osm_tags: "boundary=protected_area + protect_class=7", description: "Smaller protected natural features (IUCN 7)" }
+      - { code: 7308, fclass: "icun_8",               osm_tags: "boundary=protected_area + protect_class=97/98 OR ramsar=yes", description: "International treaties (Natura 2000, Ramsar, etc.)" }
+
+  - name: water
+    geometry: polygon
+    code_prefix: "82xx"
+    description: "Bodies of water — lakes, reservoirs, rivers, glaciers, wetlands"
+    additional_fields: []
+    fclass_values:
+      - { code: 8200, fclass: "water",      osm_tags: "natural=water (water!=river/reservoir)", description: "Unspecified water body" }
+      - { code: 8201, fclass: "reservoir",  osm_tags: "landuse=reservoir OR natural=water + water=reservoir", description: "Artificial lake (reservoir)" }
+      - { code: 8202, fclass: "river",      osm_tags: "waterway=riverbank OR natural=water + water=river", description: "Larger river (polygon)" }
+      - { code: 8203, fclass: "dock",       osm_tags: "waterway=dock", description: "Dock (ship repair)" }
+      - { code: 8211, fclass: "glacier",    osm_tags: "natural=glacier", description: "Glacier" }
+      - { code: 8221, fclass: "wetland",    osm_tags: "natural=wetland", description: "Wetland" }
+
+# ============================================================
+# ZOOM TO SCALE CONVERSION (for SLD)
+# ============================================================
+# OGC standard assumes 0.28mm pixel size (90 DPI)
+# ScaleDenominator = (pixel_size_meters * zoom_scale) / 0.00028
+# z17 ≈ 1:2000 ground scale → ScaleDenominator ≈ 1.19
+zoom_scale_mapping:
+  z17:
+    scale_denominator: 1.19
+    ground_scale: "1:2000"
+    description: "Building-level detail, individual buildings, POI icons, road names"

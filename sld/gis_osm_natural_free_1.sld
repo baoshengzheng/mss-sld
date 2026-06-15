@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sld:StyledLayerDescriptor
+    xmlns="http://www.opengis.net/sld"
+    xmlns:sld="http://www.opengis.net/sld"
+    xmlns:ogc="http://www.opengis.net/ogc"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd"
+    version="1.0.0">
+
+  <sld:NamedLayer>
+    <sld:Name>gis_osm_natural_free_1</sld:Name>
+    <sld:UserStyle>
+      <sld:Title>Natural Features (Point) - OSM Carto z17</sld:Title>
+      <sld:Abstract>OSM Carto z17 style for Geofabrik gis_osm_natural_free_1</sld:Abstract>
+      <sld:IsDefault>1</sld:IsDefault>
+      <sld:FeatureTypeStyle>
+        <sld:Name>gis_osm_natural_free_1_fts</sld:Name>
+        <sld:Title>Natural Features (Point) - OSM Carto z17</sld:Title>
+        <sld:SemanticTypeIdentifier>generic:geometry</sld:SemanticTypeIdentifier>
+        <sld:Rule>
+          <sld:Name>natural_peak</sld:Name>
+          <sld:Title>natural_peak</sld:Title>
+          <ogc:Filter>
+            <ogc:PropertyIsEqualTo>
+              <ogc:PropertyName>fclass</ogc:PropertyName>
+              <ogc:Literal>peak</ogc:Literal>
+            </ogc:PropertyIsEqualTo>
+          </ogc:Filter>
+          <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
+          <sld:MaxScaleDenominator>5000</sld:MaxScaleDenominator>
+          <sld:PointSymbolizer>
+            <sld:Graphic>
+              <sld:Mark>
+                <sld:WellKnownName>triangle</sld:WellKnownName>
+                <sld:Fill>
+                  <sld:CssParameter name="fill">#d08f55</sld:CssParameter>
+                </sld:Fill>
+              </sld:Mark>
+              <sld:Size>8</sld:Size>
+            </sld:Graphic>
+          </sld:PointSymbolizer>
+
+          <sld:TextSymbolizer>
+            <sld:Label>
+              <ogc:PropertyName>name</ogc:PropertyName>
+            </sld:Label>
+            <sld:Font>
+              <sld:CssParameter name="font-family">Noto Sans, Arial, sans-serif</sld:CssParameter>
+              <sld:CssParameter name="font-size">10</sld:CssParameter>
+              <sld:CssParameter name="font-style">normal</sld:CssParameter>
+              <sld:CssParameter name="font-weight">normal</sld:CssParameter>
+            </sld:Font>
+            <sld:LabelPlacement>
+              <sld:PointPlacement>
+                <sld:AnchorPoint>
+                  <sld:AnchorX>0.5</sld:AnchorX>
+                  <sld:AnchorY>0.5</sld:AnchorY>
+                </sld:AnchorPoint>
+                <sld:Displacement>
+                  <sld:DisplacementX>0</sld:DisplacementX>
+                  <sld:DisplacementY>-10</sld:DisplacementY>
+                </sld:Displacement>
+              </sld:PointPlacement>
+            </sld:LabelPlacement>
+            <sld:Fill>
+              <sld:CssParameter name="fill">#222222</sld:CssParameter>
+            </sld:Fill>
+            <sld:Halo>
+              <sld:Radius>
+                <ogc:Literal>1</ogc:Literal>
+              </sld:Radius>
+              <sld:Fill>
+                <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
+              </sld:Fill>
+            </sld:Halo>
+          </sld:TextSymbolizer>
+        </sld:Rule>
+        <sld:Rule>
+          <sld:Name>natural_volcano</sld:Name>
+          <sld:Title>natural_volcano</sld:Title>
+          <ogc:Filter>
+            <ogc:PropertyIsEqualTo>
+              <ogc:PropertyName>fclass</ogc:PropertyName>
+              <ogc:Literal>volcano</ogc:Literal>
+            </ogc:PropertyIsEqualTo>
+          </ogc:Filter>
+          <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
+          <sld:MaxScaleDenominator>5000</sld:MaxScaleDenominator>
+          <sld:PointSymbolizer>
+            <sld:Graphic>
+              <sld:Mark>
+                <sld:WellKnownName>triangle</sld:WellKnownName>
+                <sld:Fill>
+                  <sld:CssParameter name="fill">#d08f55</sld:CssParameter>
+                </sld:Fill>
+              </sld:Mark>
+              <sld:Size>10</sld:Size>
+            </sld:Graphic>
+          </sld:PointSymbolizer>
+
+          <sld:TextSymbolizer>
+            <sld:Label>
+              <ogc:PropertyName>name</ogc:PropertyName>
+            </sld:Label>
+            <sld:Font>
+              <sld:CssParameter name="font-family">Noto Sans, Arial, sans-serif</sld:CssParameter>
+              <sld:CssParameter name="font-size">10</sld:CssParameter>
+              <sld:CssParameter name="font-style">normal</sld:CssParameter>
+              <sld:CssParameter name="font-weight">normal</sld:CssParameter>
+            </sld:Font>
+            <sld:LabelPlacement>
+              <sld:PointPlacement>
+                <sld:AnchorPoint>
+                  <sld:AnchorX>0.5</sld:AnchorX>
+                  <sld:AnchorY>0.5</sld:AnchorY>
+                </sld:AnchorPoint>
+                <sld:Displacement>
+                  <sld:DisplacementX>0</sld:DisplacementX>
+                  <sld:DisplacementY>-10</sld:DisplacementY>
+                </sld:Displacement>
+              </sld:PointPlacement>
+            </sld:LabelPlacement>
+            <sld:Fill>
+              <sld:CssParameter name="fill">#222222</sld:CssParameter>
+            </sld:Fill>
+            <sld:Halo>
+              <sld:Radius>
+                <ogc:Literal>1</ogc:Literal>
+              </sld:Radius>
+              <sld:Fill>
+                <sld:CssParameter name="fill">rgba(255,255,255,0.6)</sld:CssParameter>
+              </sld:Fill>
+            </sld:Halo>
+          </sld:TextSymbolizer>
+        </sld:Rule>
+        <sld:Rule>
+          <sld:Name>natural_spring</sld:Name>
+          <sld:Title>natural_spring</sld:Title>
+          <ogc:Filter>
+            <ogc:PropertyIsEqualTo>
+              <ogc:PropertyName>fclass</ogc:PropertyName>
+              <ogc:Literal>spring</ogc:Literal>
+            </ogc:PropertyIsEqualTo>
+          </ogc:Filter>
+          <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
+          <sld:MaxScaleDenominator>5000</sld:MaxScaleDenominator>
+          <sld:PointSymbolizer>
+            <sld:Graphic>
+              <sld:Mark>
+                <sld:WellKnownName>circle</sld:WellKnownName>
+                <sld:Fill>
+                  <sld:CssParameter name="fill">#aad3df</sld:CssParameter>
+                </sld:Fill>
+              </sld:Mark>
+              <sld:Size>6</sld:Size>
+            </sld:Graphic>
+          </sld:PointSymbolizer>
+        </sld:Rule>
+        <sld:Rule>
+          <sld:Name>natural_cave_entrance</sld:Name>
+          <sld:Title>natural_cave_entrance</sld:Title>
+          <ogc:Filter>
+            <ogc:PropertyIsEqualTo>
+              <ogc:PropertyName>fclass</ogc:PropertyName>
+              <ogc:Literal>cave_entrance</ogc:Literal>
+            </ogc:PropertyIsEqualTo>
+          </ogc:Filter>
+          <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
+          <sld:MaxScaleDenominator>5000</sld:MaxScaleDenominator>
+          <sld:PointSymbolizer>
+            <sld:Graphic>
+              <sld:Mark>
+                <sld:WellKnownName>circle</sld:WellKnownName>
+                <sld:Fill>
+                  <sld:CssParameter name="fill">#666666</sld:CssParameter>
+                </sld:Fill>
+              </sld:Mark>
+              <sld:Size>6</sld:Size>
+            </sld:Graphic>
+          </sld:PointSymbolizer>
+        </sld:Rule>
+        <sld:Rule>
+          <sld:Name>natural_tree</sld:Name>
+          <sld:Title>natural_tree</sld:Title>
+          <ogc:Filter>
+            <ogc:PropertyIsEqualTo>
+              <ogc:PropertyName>fclass</ogc:PropertyName>
+              <ogc:Literal>tree</ogc:Literal>
+            </ogc:PropertyIsEqualTo>
+          </ogc:Filter>
+          <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
+          <sld:MaxScaleDenominator>5000</sld:MaxScaleDenominator>
+          <sld:PointSymbolizer>
+            <sld:Graphic>
+              <sld:Mark>
+                <sld:WellKnownName>circle</sld:WellKnownName>
+                <sld:Fill>
+                  <sld:CssParameter name="fill">#add19e</sld:CssParameter>
+                </sld:Fill>
+              </sld:Mark>
+              <sld:Size>5</sld:Size>
+            </sld:Graphic>
+          </sld:PointSymbolizer>
+        </sld:Rule>
+        <sld:Rule>
+          <sld:Name>natural_beach</sld:Name>
+          <sld:Title>natural_beach</sld:Title>
+          <ogc:Filter>
+            <ogc:PropertyIsEqualTo>
+              <ogc:PropertyName>fclass</ogc:PropertyName>
+              <ogc:Literal>beach</ogc:Literal>
+            </ogc:PropertyIsEqualTo>
+          </ogc:Filter>
+          <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
+          <sld:MaxScaleDenominator>5000</sld:MaxScaleDenominator>
+          <sld:PointSymbolizer>
+            <sld:Graphic>
+              <sld:Mark>
+                <sld:WellKnownName>circle</sld:WellKnownName>
+                <sld:Fill>
+                  <sld:CssParameter name="fill">#fff1ba</sld:CssParameter>
+                </sld:Fill>
+              </sld:Mark>
+              <sld:Size>6</sld:Size>
+            </sld:Graphic>
+          </sld:PointSymbolizer>
+        </sld:Rule>
+        <sld:Rule>
+          <sld:Name>natural_mine</sld:Name>
+          <sld:Title>natural_mine</sld:Title>
+          <ogc:Filter>
+            <ogc:PropertyIsEqualTo>
+              <ogc:PropertyName>fclass</ogc:PropertyName>
+              <ogc:Literal>mine</ogc:Literal>
+            </ogc:PropertyIsEqualTo>
+          </ogc:Filter>
+          <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
+          <sld:MaxScaleDenominator>5000</sld:MaxScaleDenominator>
+          <sld:PointSymbolizer>
+            <sld:Graphic>
+              <sld:Mark>
+                <sld:WellKnownName>square</sld:WellKnownName>
+                <sld:Fill>
+                  <sld:CssParameter name="fill">#666666</sld:CssParameter>
+                </sld:Fill>
+              </sld:Mark>
+              <sld:Size>6</sld:Size>
+            </sld:Graphic>
+          </sld:PointSymbolizer>
+        </sld:Rule>
+        <sld:Rule>
+          <sld:Name>natural_cliff</sld:Name>
+          <sld:Title>natural_cliff</sld:Title>
+          <ogc:Filter>
+            <ogc:PropertyIsEqualTo>
+              <ogc:PropertyName>fclass</ogc:PropertyName>
+              <ogc:Literal>cliff</ogc:Literal>
+            </ogc:PropertyIsEqualTo>
+          </ogc:Filter>
+          <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
+          <sld:MaxScaleDenominator>5000</sld:MaxScaleDenominator>
+          <sld:PointSymbolizer>
+            <sld:Graphic>
+              <sld:Mark>
+                <sld:WellKnownName>square</sld:WellKnownName>
+                <sld:Fill>
+                  <sld:CssParameter name="fill">#666666</sld:CssParameter>
+                </sld:Fill>
+              </sld:Mark>
+              <sld:Size>6</sld:Size>
+            </sld:Graphic>
+          </sld:PointSymbolizer>
+        </sld:Rule>
+        <sld:Rule>
+          <sld:Name>natural_glacier</sld:Name>
+          <sld:Title>natural_glacier</sld:Title>
+          <ogc:Filter>
+            <ogc:PropertyIsEqualTo>
+              <ogc:PropertyName>fclass</ogc:PropertyName>
+              <ogc:Literal>glacier</ogc:Literal>
+            </ogc:PropertyIsEqualTo>
+          </ogc:Filter>
+          <sld:MinScaleDenominator>2500</sld:MinScaleDenominator>
+          <sld:MaxScaleDenominator>5000</sld:MaxScaleDenominator>
+          <sld:PointSymbolizer>
+            <sld:Graphic>
+              <sld:Mark>
+                <sld:WellKnownName>circle</sld:WellKnownName>
+                <sld:Fill>
+                  <sld:CssParameter name="fill">#ddecec</sld:CssParameter>
+                </sld:Fill>
+              </sld:Mark>
+              <sld:Size>6</sld:Size>
+            </sld:Graphic>
+          </sld:PointSymbolizer>
+        </sld:Rule>
+      </sld:FeatureTypeStyle>
+    </sld:UserStyle>
+  </sld:NamedLayer></sld:StyledLayerDescriptor>

@@ -1,0 +1,646 @@
+# OSM Carto → Geofabrik → SLD Style Mapping at z17
+# Generated from openstreetmap-carto project.mml and .mss files
+# z17 ≈ ScaleDenominator 1.19, ground scale ~1:2000
+
+# ============================================================
+# GLOBAL VARIABLES (extracted from style.mss, roads.mss, etc.)
+# ============================================================
+globals:
+  land_color: "#f2efe9"
+  water_color: "#aad3df"
+  standard_halo_radius: 1
+  standard_halo_fill: "rgba(255,255,255,0.6)"
+  book_fonts: "Noto Sans, Arial, sans-serif"
+  oblique_fonts: "Noto Sans Italic, Arial Italic, sans-serif"
+
+# ============================================================
+# LAYER ORDER (from project.mml, bottom to top at z17)
+# ============================================================
+layer_order:
+  - landcover_low_zoom      # z5-9 only, not z17
+  - landcover               # z10+
+  - landcover_line          # z14+
+  - icesheet_poly           # z5+
+  - water_lines_low_zoom    # z8-11 only
+  - water_lines             # z12+
+  - water_areas             # z0+
+  - ocean_lz                # maxzoom 9
+  - ocean                   # z10+
+  - landcover_area_symbols  # z9+
+  - icesheet_outlines       # z5+
+  - marinas_area            # z14+
+  - water_barriers_line     # z13+
+  - water_barriers_poly     # z13+
+  - piers_poly              # z12+
+  - piers_line              # z12+
+  - water_barriers_point    # z17+
+  - bridge                  # z12+
+  - buildings               # z14+
+  - tunnels                 # z10+
+  - leisure_track           # z16+
+  - landuse_overlay         # z8+
+  - barriers                # z15+
+  - cliffs                  # z13+
+  - ferry_routes            # z8+
+  - turning_circle_casing   # z15+
+  - highway_area_casing     # z14+
+  - roads_casing            # z12+ (CASING layer)
+  - highway_area_fill       # z14+
+  - roads_fill              # z12+ (FILL layer)
+  - roads_text              # z13+
+  - roads_text_low          # z11-12 only
+  - paths_text              # z14+
+  - railways                # z8+
+  - waterway_text           # z13+
+  - turning_circle_fill     # z15+
+  - aerialways              # z12+
+  - power_line              # z10+
+  - power_minor_line        # z12+
+  - power_towers            # z14+
+  - power_poles             # z17+
+  - admin_low_zoom          # <z8
+  - admin_mid_zoom          # z8-12
+  - admin_high_zoom         # z13+
+  - country_names           # z3+
+  - state_names             # z5+
+  - capital_names           # z4+
+  - placenames_large        # various
+  - placenames_medium       # various
+  - placenames_small        # z10+
+  - stations                # z12+
+  - amenity_points          # z16+
+  - amenity_stations        # various
+  - ferry_text              # z13+
+  - addressing              # z19+ only
+  - golf                    # z16+
+
+# ============================================================
+# GEOFABRIK LAYER → CARTO STYLE MAPPING (z17 only)
+# ============================================================
+
+# --- POLYGON LAYERS ---
+
+landuse:
+  geofabrik_layer: landuse
+  geometry: polygon
+  minzoom: 10
+  rules:
+    - fclass: forest
+      carto_feature: "natural_wood OR landuse_forest"
+      z17_visible: true
+      fill: "#add19e"
+      stroke: null  # no outline at z17
+      pattern: null
+    - fclass: park
+      carto_feature: "leisure_park"
+      z17_visible: true
+      fill: "#c8facc"
+      stroke: null
+    - fclass: residential
+      carto_feature: "landuse_residential"
+      z17_visible: true
+      fill: "#e0dfdf"
+      stroke: "#b9b9b9"
+      stroke_width: 0.5
+    - fclass: industrial
+      carto_feature: "landuse_industrial"
+      z17_visible: true
+      fill: "#ebdbe8"
+      stroke: "#c6b3c3"
+      stroke_width: 0.5
+    - fclass: commercial
+      carto_feature: "landuse_commercial"
+      z17_visible: true
+      fill: "#f2dad9"
+      stroke: "#d1b2b0"
+      stroke_width: 0.5
+    - fclass: retail
+      carto_feature: "landuse_retail"
+      z17_visible: true
+      fill: "#ffd6d1"
+      stroke: "#d99c95"
+      stroke_width: 0.5
+    - fclass: farmland
+      carto_feature: "landuse_farmland"
+      z17_visible: true
+      fill: "#eef0d5"
+      stroke: "#c7c9ae"
+      stroke_width: 0.5
+    - fclass: farmyard
+      carto_feature: "landuse_farmyard"
+      z17_visible: true
+      fill: "#f5dcba"
+      stroke: "#d1b48c"
+      stroke_width: 0.5
+    - fclass: meadow
+      carto_feature: "landuse_meadow"
+      z17_visible: true
+      fill: "#cdebb0"
+      stroke: null
+    - fclass: grass
+      carto_feature: "landuse_grass"
+      z17_visible: true
+      fill: "#cdebb0"
+      stroke: null
+    - fclass: allotments
+      carto_feature: "landuse_allotments"
+      z17_visible: true
+      fill: "#c9e1bf"
+      stroke: null
+    - fclass: cemetery
+      carto_feature: "landuse_cemetery"
+      z17_visible: true
+      fill: "#aacbaf"
+      stroke: null
+    - fclass: recreation_ground
+      carto_feature: "leisure_recreation_ground"
+      z17_visible: true
+      fill: "#c8facc"
+      stroke: null
+    - fclass: orchard
+      carto_feature: "landuse_orchard"
+      z17_visible: true
+      fill: "#aedfa3"
+      stroke: null
+    - fclass: vineyard
+      carto_feature: "landuse_vineyard"
+      z17_visible: true
+      fill: "#aedfa3"
+      stroke: null
+    - fclass: scrub
+      carto_feature: "natural_scrub"
+      z17_visible: true
+      fill: "#c8d7ab"
+      stroke: null
+    - fclass: heath
+      carto_feature: "natural_heath"
+      z17_visible: true
+      fill: "#d6d99f"
+      stroke: null
+    - fclass: quarry
+      carto_feature: "landuse_quarry"
+      z17_visible: true
+      fill: "#c5c3c3"
+      stroke: null
+    - fclass: military
+      carto_feature: "landuse_military OR military_danger_area"
+      z17_visible: true
+      fill: "#f55"
+      stroke: null
+      pattern: "diagonal_hatch"
+    - fclass: landfill
+      carto_feature: "landuse_landfill"
+      z17_visible: true
+      fill: "#e0dfdf"
+      stroke: null
+
+buildings:
+  geofabrik_layer: buildings
+  geometry: polygon
+  minzoom: 14
+  rules:
+    - fclass: buildings
+      carto_feature: "building IS NOT NULL"
+      z17_visible: true
+      fill: "#d9d0c9"
+      stroke: "#b0a7a0"
+      stroke_width: 0.75
+      # Major buildings (place_of_worship, train_station, aeroway_terminal, etc.)
+      note: "Major building types (place_of_worship, train_station, aeroway=terminal, public_transport=station, aerialway=station) use fill=#c7bdb4 stroke=#9e9690"
+
+water:
+  geofabrik_layer: water
+  geometry: polygon
+  minzoom: 0
+  rules:
+    - fclass: water
+      carto_feature: "natural_water"
+      z17_visible: true
+      fill: "#aad3df"
+      stroke: null
+    - fclass: reservoir
+      carto_feature: "landuse_reservoir OR natural_water + water=reservoir"
+      z17_visible: true
+      fill: "#aad3df"
+      stroke: null
+    - fclass: river
+      carto_feature: "waterway_riverbank OR natural_water + water=river"
+      z17_visible: true
+      fill: "#aad3df"
+      stroke: null
+    - fclass: dock
+      carto_feature: "waterway_dock"
+      z17_visible: true
+      fill: "#aad3df"
+      stroke: null
+    - fclass: glacier
+      carto_feature: "natural_glacier"
+      z17_visible: true
+      fill: "#ddecec"
+      stroke: "#9cf"
+      stroke_width: 1.5
+      stroke_dasharray: "4,2"
+    - fclass: wetland
+      carto_feature: "natural_wetland"
+      z17_visible: true
+      fill: "#b5d0d0"
+      pattern: "wetland_pattern"
+      stroke: null
+
+protected_areas:
+  geofabrik_layer: protected_areas
+  geometry: polygon
+  minzoom: 8
+  rules:
+    - fclass: national_park
+      carto_feature: "boundary_national_park"
+      z17_visible: true
+      fill: "#c8facc"
+      stroke: "#a0d0a0"
+      stroke_width: 0.5
+      stroke_dasharray: "4,4"
+    - fclass: other_nature_reserve
+      carto_feature: "leisure_nature_reserve"
+      z17_visible: true
+      fill: "#c8facc"
+      stroke: "#a0d0a0"
+      stroke_width: 0.5
+      stroke_dasharray: "4,4"
+    - fclass: icun_1
+      carto_feature: "protect_class_1"
+      z17_visible: true
+      fill: "#c8facc"
+      stroke: "#a0d0a0"
+      stroke_width: 0.5
+      stroke_dasharray: "4,4"
+
+adminareas:
+  geofabrik_layer: adminareas
+  geometry: polygon
+  minzoom: 13  # for admin-high-zoom
+  rules:
+    - fclass: national
+      carto_feature: "admin_level=2"
+      z17_visible: true
+      fill: "none"
+      stroke: "#8d618b"
+      stroke_width: 7
+      stroke_dasharray: null
+
+# --- LINE LAYERS ---
+
+roads:
+  geofabrik_layer: roads
+  geometry: linestring
+  minzoom: 12
+  note: |
+    Roads render in TWO passes in CartoCSS: casing (wide outline) then fill (narrower inner).
+    In SLD, this is achieved with two Rules per road class.
+    Tunnel rendering uses dashed casing. Bridge rendering uses black casing.
+    Link roads (motorway_link, etc.) have narrower widths.
+  rules:
+    # --- CASING (outer edge) ---
+    - { fclass: motorway,      pass: "casing", z17_width: 18, color: "#dc2a67", z17_visible: true, link_z17_width: 12 }
+    - { fclass: trunk,         pass: "casing", z17_width: 18, color: "#c84e2f", z17_visible: true, link_z17_width: 12 }
+    - { fclass: primary,       pass: "casing", z17_width: 18, color: "#a06b00", z17_visible: true, link_z17_width: 12 }
+    - { fclass: secondary,     pass: "casing", z17_width: 18, color: "#707d05", z17_visible: true, link_z17_width: 12 }
+    - { fclass: tertiary,      pass: "casing", z17_width: 18, color: "#8f8f8f", z17_visible: true, link_z17_width: 12 }
+    - { fclass: unclassified,  pass: "casing", z17_width: 12, color: "#bbbbbb", z17_visible: true }
+    - { fclass: residential,   pass: "casing", z17_width: 12, color: "#bbbbbb", z17_visible: true }
+    - { fclass: living_street, pass: "casing", z17_width: 12, color: "#bbbbbb", z17_visible: true }
+    - { fclass: pedestrian,    pass: "casing", z17_width: 12, color: "#999999", z17_visible: true }
+    - { fclass: service,       pass: "casing", z17_width: 7,  color: "#bbbbbb", z17_visible: true, minor_z17_width: 3.5, note: "minor=parking_aisle/driveway uses 3.5 width" }
+    - { fclass: track,         pass: "casing", z17_width: 1.5, color: "#ffffff", z17_visible: true, note: "z17 inherits from track-width-z15=1.5" }
+    - { fclass: bridleway,     pass: "casing", z17_width: 1.2, color: "#ffffff", z17_visible: true, note: "z17 inherits from bridleway-width-z15=1.2" }
+    - { fclass: cycleway,      pass: "casing", z17_width: 0.9, color: "#ffffff", z17_visible: true, note: "z17 inherits from cycleway-width-z16=0.9" }
+    - { fclass: footway,       pass: "casing", z17_width: 1.3, color: "#ffffff", z17_visible: true, note: "z17 inherits from footway-width-z16=1.3" }
+    - { fclass: path,          pass: "casing", z17_width: 1.3, color: "#ffffff", z17_visible: true }
+    - { fclass: steps,         pass: "casing", z17_width: 3,   color: "#ffffff", z17_visible: true, note: "z17 inherits from steps-width-z15=3" }
+    - # --- FILL (inner surface) ---
+    - { fclass: motorway,      pass: "fill", z17_width: 12, color: "#e892a2", z17_visible: true, link_z17_width: 10 }
+    - { fclass: trunk,         pass: "fill", z17_width: 12, color: "#f9b29c", z17_visible: true, link_z17_width: 10 }
+    - { fclass: primary,       pass: "fill", z17_width: 12, color: "#fcd6a4", z17_visible: true, link_z17_width: 10 }
+    - { fclass: secondary,     pass: "fill", z17_width: 12, color: "#f7fabf", z17_visible: true, link_z17_width: 10 }
+    - { fclass: tertiary,      pass: "fill", z17_width: 12, color: "#ffffff", z17_visible: true, link_z17_width: 9 }
+    - { fclass: unclassified,  pass: "fill", z17_width: 7,  color: "#ffffff", z17_visible: true }
+    - { fclass: residential,   pass: "fill", z17_width: 7,  color: "#ffffff", z17_visible: true }
+    - { fclass: living_street, pass: "fill", z17_width: 7,  color: "#ededed", z17_visible: true }
+    - { fclass: pedestrian,    pass: "fill", z17_width: 7,  color: "#dddde8", z17_visible: true }
+    - { fclass: service,       pass: "fill", z17_width: 5,  color: "#ffffff", z17_visible: true, minor_z17_width: 2.5, note: "fill uses ~2/3 of casing width" }
+    - { fclass: track,         pass: "fill", z17_width: 1.2, color: "#996600", z17_visible: true }
+    - { fclass: bridleway,     pass: "fill", z17_width: 0.8, color: "#008000", z17_visible: true }
+    - { fclass: cycleway,      pass: "fill", z17_width: 0.6, color: "#0000ff", z17_visible: true }
+    - { fclass: footway,       pass: "fill", z17_width: 0.9, color: "#fa8072", z17_visible: true }
+    - { fclass: path,          pass: "fill", z17_width: 0.9, color: "#fa8072", z17_visible: true }
+    - { fclass: steps,         pass: "fill", z17_width: 2,   color: "#fa8072", z17_visible: true, stroke_dasharray: "2,3" }
+    - { fclass: motorway_link, pass: "fill", z17_width: 10, color: "#e892a2", z17_visible: true }
+    - { fclass: trunk_link,    pass: "fill", z17_width: 10, color: "#f9b29c", z17_visible: true }
+    - { fclass: primary_link,  pass: "fill", z17_width: 10, color: "#fcd6a4", z17_visible: true }
+    - { fclass: secondary_link, pass: "fill", z17_width: 10, color: "#f7fabf", z17_visible: true }
+    - { fclass: tertiary_link, pass: "fill", z17_width: 9,  color: "#ffffff", z17_visible: true }
+
+railways:
+  geofabrik_layer: railways
+  geometry: linestring
+  minzoom: 12
+  rules:
+    - fclass: rail
+      carto_feature: "railway_rail"
+      z17_visible: true
+      stroke: "#666666"
+      stroke_width: 2.5
+      stroke_dasharray: null
+    - fclass: subway
+      carto_feature: "railway_subway"
+      z17_visible: true
+      stroke: "#666666"
+      stroke_width: 2.5
+      stroke_dasharray: "4,4"
+    - fclass: tram
+      carto_feature: "railway_tram"
+      z17_visible: true
+      stroke: "#666666"
+      stroke_width: 1.5
+    - fclass: light_rail
+      carto_feature: "railway_light_rail"
+      z17_visible: true
+      stroke: "#666666"
+      stroke_width: 2.5
+    - fclass: narrow_gauge
+      carto_feature: "railway_narrow_gauge"
+      z17_visible: true
+      stroke: "#666666"
+      stroke_width: 1.5
+    - fclass: funicular
+      carto_feature: "railway_funicular"
+      z17_visible: true
+      stroke: "#666666"
+      stroke_width: 1.5
+    - fclass: monorail
+      carto_feature: "railway_monorail"
+      z17_visible: true
+      stroke: "#666666"
+      stroke_width: 2.5
+
+waterways:
+  geofabrik_layer: waterways
+  geometry: linestring
+  minzoom: 12
+  rules:
+    - fclass: river
+      carto_feature: "waterway_river"
+      z17_visible: true
+      stroke: "#aad3df"
+      stroke_width: 10
+    - fclass: stream
+      carto_feature: "waterway_stream"
+      z17_visible: true
+      stroke: "#aad3df"
+      stroke_width: 3.5
+    - fclass: canal
+      carto_feature: "waterway_canal"
+      z17_visible: true
+      stroke: "#aad3df"
+      stroke_width: 14  # river * 1.4 canal factor
+    - fclass: drain
+      carto_feature: "waterway_drain OR waterway_ditch"
+      z17_visible: true
+      stroke: "#aad3df"
+      stroke_width: 3
+
+# --- POINT LAYERS ---
+
+places:
+  geofabrik_layer: places
+  geometry: point
+  minzoom: 8
+  rules:
+    - fclass: city
+      z17_visible: true
+      text_name: "[name]"
+      text_font: "Noto Sans, Arial, sans-serif"
+      text_size: 15
+      text_fill: "#222222"
+      text_halo_fill: "rgba(255,255,255,0.6)"
+      text_halo_radius: 1.5
+      text_wrap_width: 75
+    - fclass: town
+      z17_visible: true
+      text_name: "[name]"
+      text_font: "Noto Sans, Arial, sans-serif"
+      text_size: 13
+      text_fill: "#222222"
+      text_halo_fill: "rgba(255,255,255,0.6)"
+      text_halo_radius: 1.5
+      text_wrap_width: 65
+    - fclass: suburb
+      z17_visible: true
+      text_name: "[name]"
+      text_font: "Noto Sans, Arial, sans-serif"
+      text_size: 12
+      text_fill: "#222222"
+      text_halo_fill: "rgba(255,255,255,0.6)"
+      text_halo_radius: 1.5
+      text_wrap_width: 50
+    - fclass: village
+      z17_visible: true
+      text_name: "[name]"
+      text_font: "Noto Sans, Arial, sans-serif"
+      text_size: 12
+      text_fill: "#222222"
+      text_halo_fill: "rgba(255,255,255,0.6)"
+      text_halo_radius: 1.5
+      text_wrap_width: 50
+    - fclass: hamlet
+      z17_visible: true
+      text_name: "[name]"
+      text_font: "Noto Sans, Arial, sans-serif"
+      text_size: 10
+      text_fill: "#222222"
+      text_halo_fill: "rgba(255,255,255,0.6)"
+      text_halo_radius: 1.5
+      text_wrap_width: 40
+    - fclass: locality
+      z17_visible: true
+      text_name: "[name]"
+      text_font: "Noto Sans, Arial, sans-serif"
+      text_size: 10
+      text_fill: "#777777"
+      text_halo_fill: "rgba(255,255,255,0.6)"
+      text_halo_radius: 1.5
+
+pois:
+  geofabrik_layer: pois
+  geometry: point
+  minzoom: 17  # most POIs appear at z17+
+  rules:
+    # Gastronomy
+    - { fclass: restaurant,   z17_visible: true, marker_size: 4, marker_fill: "#C77400", marker_type: "symbol", note: "SVG icon at z18+" }
+    - { fclass: fast_food,    z17_visible: true, marker_size: 4, marker_fill: "#C77400", marker_type: "symbol" }
+    - { fclass: cafe,         z17_visible: true, marker_size: 4, marker_fill: "#C77400", marker_type: "symbol" }
+    - { fclass: pub,          z17_visible: true, marker_size: 4, marker_fill: "#C77400", marker_type: "symbol" }
+    - { fclass: bar,          z17_visible: true, marker_size: 4, marker_fill: "#C77400", marker_type: "symbol" }
+    - { fclass: food_court,   z17_visible: true, marker_size: 4, marker_fill: "#C77400", marker_type: "symbol" }
+    - { fclass: biergarten,   z17_visible: true, marker_size: 4, marker_fill: "#C77400", marker_type: "symbol" }
+    # Money
+    - { fclass: bank,         z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: atm,          z17_visible: false, note: "atm appears at z18 only" }
+    # Accommodation
+    - { fclass: hotel,        z17_visible: true, marker_fill: "#0092da", marker_type: "symbol" }
+    - { fclass: motel,        z17_visible: true, marker_fill: "#0092da", marker_type: "symbol" }
+    - { fclass: guesthouse,   z17_visible: true, marker_fill: "#0092da", marker_type: "symbol" }
+    - { fclass: hostel,       z17_visible: true, marker_fill: "#0092da", marker_type: "symbol" }
+    - { fclass: chalet,       z17_visible: true, marker_fill: "#0092da", marker_type: "symbol" }
+    - { fclass: bed_and_breakfast, z17_visible: true, marker_fill: "#0092da", marker_type: "symbol" }
+    - { fclass: camp_site,    z17_visible: true, marker_fill: "#0092da", marker_type: "symbol" }
+    - { fclass: caravan_site, z17_visible: true, marker_fill: "#0092da", marker_type: "symbol" }
+    - { fclass: alpine_hut,   z17_visible: true, marker_fill: "#0092da", marker_type: "symbol" }
+    - { fclass: shelter,      z17_visible: true, marker_fill: "#666666", marker_type: "symbol", note: "shelter appears at z16+" }
+    # Culture/Tourism
+    - { fclass: museum,       z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: attraction,   z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: monument,     z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: memorial,     z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: art,          z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: castle,       z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: ruins,        z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: archaeological, z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: wayside_cross, z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: wayside_shrine, z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: battlefield,  z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: fort,         z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: picnic_site,  z17_visible: true, marker_fill: "#0092da", marker_type: "symbol" }
+    - { fclass: viewpoint,    z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: zoo,          z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: theme_park,   z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: tourist_info, z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: tourist_map,  z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: tourist_board, z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: tourist_guidepost, z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    # Health
+    - { fclass: hospital,     z17_visible: true, marker_fill: "#BF0000", marker_type: "symbol" }
+    - { fclass: pharmacy,     z17_visible: true, marker_fill: "#BF0000", marker_type: "symbol" }
+    - { fclass: clinic,       z17_visible: true, marker_fill: "#BF0000", marker_type: "symbol" }
+    - { fclass: doctors,      z17_visible: true, marker_fill: "#BF0000", marker_type: "symbol" }
+    - { fclass: dentist,      z17_visible: true, marker_fill: "#BF0000", marker_type: "symbol" }
+    - { fclass: veterinary,   z17_visible: true, marker_fill: "#BF0000", marker_type: "symbol" }
+    # Education
+    - { fclass: university,   z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: school,       z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: kindergarten, z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: college,      z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: library,      z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    # Shopping
+    - { fclass: supermarket,  z17_visible: true, marker_fill: "#ac39ac", marker_type: "symbol" }
+    - { fclass: bakery,       z17_visible: true, marker_fill: "#ac39ac", marker_type: "symbol" }
+    - { fclass: mall,         z17_visible: true, marker_fill: "#ac39ac", marker_type: "symbol" }
+    - { fclass: convenience,  z17_visible: true, marker_fill: "#ac39ac", marker_type: "symbol" }
+    - { fclass: clothes,      z17_visible: true, marker_fill: "#ac39ac", marker_type: "symbol" }
+    - { fclass: bookshop,     z17_visible: true, marker_fill: "#ac39ac", marker_type: "symbol" }
+    - { fclass: butcher,      z17_visible: true, marker_fill: "#ac39ac", marker_type: "symbol" }
+    - { fclass: florist,      z17_visible: true, marker_fill: "#ac39ac", marker_type: "symbol" }
+    # Public
+    - { fclass: police,         z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: fire_station,   z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: post_office,    z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: post_box,       z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: town_hall,      z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: courthouse,     z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: prison,         z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: embassy,        z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: community_centre, z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: nursing_home,   z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: arts_centre,    z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: graveyard,      z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: market_place,   z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    # Leisure
+    - { fclass: theatre,      z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: nightclub,    z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: cinema,       z17_visible: true, marker_fill: "#734a08", marker_type: "symbol", note: "cinema appears at z16" }
+    - { fclass: sports_centre, z17_visible: true, marker_fill: "#008000", marker_type: "symbol" }
+    - { fclass: pitch,        z17_visible: true, marker_fill: "#008000", marker_type: "symbol" }
+    - { fclass: stadium,      z17_visible: true, marker_fill: "#008000", marker_type: "symbol" }
+    - { fclass: swimming_pool, z17_visible: true, marker_fill: "#008000", marker_type: "symbol" }
+    # Misc
+    - { fclass: toilet,       z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: bench,        z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: drinking_water, z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: fountain,     z17_visible: true, marker_fill: "#aad3df", marker_type: "symbol" }
+    - { fclass: waste_basket, z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: recycling,    z17_visible: true, marker_fill: "#734a08", marker_type: "symbol" }
+    - { fclass: tower,        z17_visible: true, marker_fill: "#666666", marker_type: "symbol" }
+    - { fclass: tower_comms,  z17_visible: true, marker_fill: "#666666", marker_type: "symbol" }
+    - { fclass: water_tower,  z17_visible: true, marker_fill: "#666666", marker_type: "symbol" }
+    - { fclass: windmill,     z17_visible: true, marker_fill: "#666666", marker_type: "symbol" }
+    - { fclass: lighthouse,   z17_visible: true, marker_fill: "#666666", marker_type: "symbol" }
+
+pofw:
+  geofabrik_layer: pofw
+  geometry: point
+  minzoom: 17
+  rules:
+    - { fclass: place_of_worship, z17_visible: true, marker_fill: "#000000", marker_type: "symbol" }
+    - { fclass: christian,        z17_visible: true, marker_fill: "#000000", marker_type: "symbol" }
+    - { fclass: jewish,           z17_visible: true, marker_fill: "#000000", marker_type: "symbol" }
+    - { fclass: muslim,           z17_visible: true, marker_fill: "#000000", marker_type: "symbol" }
+    - { fclass: buddhist,         z17_visible: true, marker_fill: "#000000", marker_type: "symbol" }
+    - { fclass: hindu,            z17_visible: true, marker_fill: "#000000", marker_type: "symbol" }
+
+natural:
+  geofabrik_layer: natural
+  geometry: point
+  minzoom: 17
+  rules:
+    - { fclass: peak,   z17_visible: true, marker_fill: "#d08f55", marker_size: 6, marker_type: "triangle", text_name: "[name]", text_size: 10, text_fill: "#222222" }
+    - { fclass: volcano,z17_visible: true, marker_fill: "#d08f55", marker_size: 8, marker_type: "triangle", text_name: "[name]" }
+    - { fclass: spring,  z17_visible: true, marker_fill: "#aad3df", marker_size: 6, marker_type: "circle" }
+    - { fclass: cave_entrance, z17_visible: true, marker_fill: "#666666", marker_size: 6, marker_type: "circle" }
+    - { fclass: tree,    z17_visible: true, marker_fill: "#add19e", marker_size: 5, marker_type: "circle" }
+    - { fclass: cliff,   z17_visible: true, marker_fill: "#666666", marker_type: "symbol" }
+    - { fclass: beach,   z17_visible: true, marker_fill: "#fff1ba", marker_type: "symbol" }
+    - { fclass: mine,    z17_visible: true, marker_fill: "#666666", marker_type: "symbol" }
+
+traffic:
+  geofabrik_layer: traffic
+  geometry: point
+  minzoom: 17
+  rules:
+    - { fclass: traffic_signals, z17_visible: true, marker_fill: "#545454", marker_type: "symbol" }
+    - { fclass: mini_roundabout, z17_visible: true, marker_fill: "#ffffff", marker_stroke: "#bbbbbb", marker_size: 8, marker_type: "circle" }
+    - { fclass: crossing,        z17_visible: true, marker_fill: "#0092da", marker_type: "symbol" }
+    - { fclass: fuel,            z17_visible: true, marker_fill: "#0092da", marker_type: "symbol" }
+    - { fclass: parking,         z17_visible: true, marker_fill: "#0092da", marker_type: "symbol" }
+    - { fclass: parking_bicycle, z17_visible: true, marker_fill: "#0092da", marker_type: "symbol" }
+    - { fclass: motorway_junction, z17_visible: true, text_name: "[name]", text_size: 9, text_fill: "#960000" }
+
+transport:
+  geofabrik_layer: transport
+  geometry: point
+  minzoom: 17
+  rules:
+    - { fclass: railway_station, z17_visible: true, marker_fill: "#0092da", marker_type: "symbol" }
+    - { fclass: railway_halt,    z17_visible: true, marker_fill: "#0092da", marker_type: "symbol" }
+    - { fclass: tram_stop,       z17_visible: true, marker_fill: "#0092da", marker_type: "symbol" }
+    - { fclass: bus_stop,        z17_visible: true, marker_fill: "#0092da", marker_type: "symbol", marker_size: 6 }
+    - { fclass: bus_station,     z17_visible: true, marker_fill: "#0092da", marker_type: "symbol", note: "appears at z16" }
+    - { fclass: taxi_rank,       z17_visible: true, marker_fill: "#0092da", marker_type: "symbol" }
+    - { fclass: airport,         z17_visible: true, marker_fill: "#8461C4", marker_type: "symbol" }
+    - { fclass: airfield,        z17_visible: true, marker_fill: "#8461C4", marker_type: "symbol" }
+    - { fclass: helipad,         z17_visible: true, marker_fill: "#8461C4", marker_type: "symbol" }
+    - { fclass: ferry_terminal,  z17_visible: true, marker_fill: "#8461C4", marker_type: "symbol" }
+
+# ============================================================
+# ZOOM 17 SCALE PARAMETERS for SLD
+# ============================================================
+# OGC SLD 1.0 uses ScaleDenominator
+# At 90 DPI (0.28mm pixel), z17 ground resolution ≈ 1.19 m/pixel
+# ScaleDenominator = 1.19 / 0.00028 ≈ 4250 for Mercator at equator
+# For WGS84 lat/lon data, use ~2400 as min scale for z17 visibility
+z17_sld_parameters:
+  min_scale_denominator: 1000
+  max_scale_denominator: 2500
+  note: |
+    These values control z17 visibility in SLD.
+    Features should appear when map scale is between ~1:1000 and ~1:2500.
+    Adjust based on actual WMS DPI and coordinate system.
+    For Geofabrik data in EPSG:4326, actual scale conversion differs by latitude.
